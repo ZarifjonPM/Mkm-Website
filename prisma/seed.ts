@@ -1,8 +1,26 @@
 import { PrismaClient } from "@prisma/client";
+import { PrismaNeonHttp } from "@prisma/adapter-neon";
+import * as fs from "fs";
+import * as path from "path";
 import * as catalogData from "../src/data/catalog.json";
 import * as categoriesData from "../src/data/categories.json";
 
-const prisma = new PrismaClient();
+// Load .env manually
+const envPath = path.resolve(process.cwd(), ".env");
+if (fs.existsSync(envPath)) {
+  for (const line of fs.readFileSync(envPath, "utf-8").split("\n")) {
+    const t = line.trim();
+    if (!t || t.startsWith("#")) continue;
+    const idx = t.indexOf("=");
+    if (idx === -1) continue;
+    const k = t.slice(0, idx).trim();
+    const v = t.slice(idx + 1).trim();
+    if (!process.env[k]) process.env[k] = v;
+  }
+}
+
+const adapter = new PrismaNeonHttp(process.env.DIRECT_URL!, {});
+const prisma = new PrismaClient({ adapter } as any);
 
 async function main() {
   console.log("Seeding categories...");
