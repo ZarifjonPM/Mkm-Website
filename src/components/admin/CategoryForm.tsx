@@ -42,15 +42,8 @@ export function CategoryForm({ initialData, mode }: CategoryFormProps) {
   const router = useRouter();
   const [form, setForm] = useState<CategoryFormData>(
     initialData ?? {
-      id: "",
-      nameRu: "",
-      nameUz: "",
-      slug: "",
-      descRu: "",
-      descUz: "",
-      icon: "/icons/",
-      image: "/images/",
-      order: 1,
+      id: "", nameRu: "", nameUz: "", slug: "",
+      descRu: "", descUz: "", icon: "", image: "", order: 1,
     }
   );
   const [errors, setErrors] = useState<Partial<Record<keyof CategoryFormData, string>>>({});
@@ -66,7 +59,7 @@ export function CategoryForm({ initialData, mode }: CategoryFormProps) {
     const val = e.target.value;
     const slug = toSlug(val);
     setForm((prev) => ({ ...prev, nameRu: val, id: slug, slug }));
-    setErrors((prev) => ({ ...prev, nameRu: undefined, id: undefined, slug: undefined }));
+    setErrors((prev) => ({ ...prev, nameRu: undefined }));
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -84,7 +77,7 @@ export function CategoryForm({ initialData, mode }: CategoryFormProps) {
       const res = await fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, order: Number(form.order) }),
+        body: JSON.stringify(form),
       });
 
       if (res.ok) {
@@ -144,35 +137,6 @@ export function CategoryForm({ initialData, mode }: CategoryFormProps) {
           />
         </FormField>
       </div>
-
-      <FormField label="Иконка (путь)" error={errors.icon} required>
-        <AdminInput
-          value={form.icon}
-          onChange={(e) => set("icon", e.target.value)}
-          placeholder="/icons/category-name.svg"
-          error={!!errors.icon}
-        />
-      </FormField>
-
-      <FormField label="Изображение (путь)" error={errors.image} required>
-        <AdminInput
-          value={form.image}
-          onChange={(e) => set("image", e.target.value)}
-          placeholder="/images/catalog/category-name.jpg"
-          error={!!errors.image}
-        />
-      </FormField>
-
-      <FormField label="Порядок отображения" error={errors.order} required>
-        <AdminInput
-          type="number"
-          min={1}
-          value={form.order}
-          onChange={(e) => set("order", Number(e.target.value))}
-          error={!!errors.order}
-          className="w-24"
-        />
-      </FormField>
 
       {serverError && (
         <div className="flex items-center gap-2 bg-red-50 border border-red-200 rounded-lg px-4 py-2.5 text-sm text-red-700">

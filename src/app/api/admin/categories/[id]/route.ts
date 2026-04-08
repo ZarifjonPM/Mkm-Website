@@ -6,12 +6,12 @@ import { z } from "zod";
 const updateSchema = z.object({
   nameRu: z.string().min(2).max(200),
   nameUz: z.string().min(2).max(200),
-  slug: z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/),
+  slug: z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/).optional(),
   descRu: z.string().min(2),
   descUz: z.string().min(2),
-  icon: z.string().startsWith("/"),
-  image: z.string().startsWith("/"),
-  order: z.number().int().min(1),
+  icon: z.string().optional(),
+  image: z.string().optional(),
+  order: z.number().int().min(1).optional(),
 });
 
 export async function GET(
@@ -47,9 +47,21 @@ export async function PUT(
     );
   }
 
+  // Only update defined fields
+  const data: Record<string, unknown> = {
+    nameRu: parsed.data.nameRu,
+    nameUz: parsed.data.nameUz,
+    descRu: parsed.data.descRu,
+    descUz: parsed.data.descUz,
+  };
+  if (parsed.data.slug !== undefined) data.slug = parsed.data.slug;
+  if (parsed.data.icon !== undefined) data.icon = parsed.data.icon;
+  if (parsed.data.image !== undefined) data.image = parsed.data.image;
+  if (parsed.data.order !== undefined) data.order = parsed.data.order;
+
   const category = await prisma.category.update({
     where: { id: params.id },
-    data: parsed.data,
+    data,
   });
 
   return NextResponse.json(category);
@@ -71,7 +83,7 @@ export async function DELETE(
 
   if (category._count.products > 0) {
     return NextResponse.json(
-      { error: `Cannot delete: category has ${category._count.products} product(s)` },
+      { error: `Нельзя удалить: в категории ${category._count.products} продуктов` },
       { status: 409 }
     );
   }

@@ -10,9 +10,9 @@ const categorySchema = z.object({
   slug: z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/),
   descRu: z.string().min(2),
   descUz: z.string().min(2),
-  icon: z.string().startsWith("/"),
-  image: z.string().startsWith("/"),
-  order: z.number().int().min(1),
+  icon: z.string().optional(),
+  image: z.string().optional(),
+  order: z.number().int().min(1).optional(),
 });
 
 export async function GET(request: NextRequest) {
@@ -43,9 +43,19 @@ export async function POST(request: NextRequest) {
 
   const existing = await prisma.category.findUnique({ where: { id: parsed.data.id } });
   if (existing) {
-    return NextResponse.json({ error: "Category with this ID already exists" }, { status: 409 });
+    return NextResponse.json({ error: "Категория с таким ID уже существует" }, { status: 409 });
   }
 
-  const category = await prisma.category.create({ data: parsed.data });
+  const maxOrder = await prisma.category.aggregate({ _max: { order: true } });
+  const nextOrder = (maxOrder._max.order ?? 0) + 1;
+
+  const category = await prisma.category.create({
+    data: {
+      ...parsed.data,
+      icon: parsed.data.icon || `/icons/${parsed.data.id}.svg`,
+      image: parsed.data.image || `/images/catalog/${parsed.data.id}.jpg`,
+      order: parsed.data.order ?? nextOrder,
+    },
+  });
   return NextResponse.json(category, { status: 201 });
 }
