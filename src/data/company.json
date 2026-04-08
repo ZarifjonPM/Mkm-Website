@@ -1,0 +1,8 @@
+{
+  "stats": [
+    { "value": "8+", "labelKey": "categories" },
+    { "value": "100+", "labelKey": "products" },
+    { "value": "3", "labelKey": "standards" },
+    { "value": "10+", "labelKey": "experience" }
+  ]
+}

@@ -1,0 +1,10 @@
+[
+  { "id": "mmk", "name": "ММК", "logo": "/images/partners/mmk.png" },
+  { "id": "nlmk", "name": "НЛМК", "logo": "/images/partners/nlmk.png" },
+  { "id": "severstal", "name": "Северсталь", "logo": "/images/partners/severstal.png" },
+  { "id": "tmk", "name": "ТМК", "logo": "/images/partners/tmk.png" },
+  { "id": "chtpz", "name": "ЧТПЗ", "logo": "/images/partners/chtpz.png" },
+  { "id": "evraz", "name": "ЕВРАЗ", "logo": "/images/partners/evraz.png" },
+  { "id": "mechel", "name": "Мечел", "logo": "/images/partners/mechel.png" },
+  { "id": "uzmetkombinat", "name": "Узметкомбинат", "logo": "/images/partners/uzmetkombinat.png" }
+]

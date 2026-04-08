@@ -1,0 +1,74 @@
+[
+  {
+    "id": "cherniy-metalloprokat",
+    "name": { "ru": "Черный металлопрокат", "uz": "Qora metall prokat" },
+    "slug": "cherniy-metalloprokat",
+    "description": { "ru": "Трубы, стальной лист, сортовой прокат, профнастил", "uz": "Quvurlar, po'lat list, navli prokat, profnastil" },
+    "icon": "/images/icons/black-metal.svg",
+    "image": "/images/categories/black-metal.jpg",
+    "order": 1
+  },
+  {
+    "id": "nerzhaveyushchiy-metalloprokat",
+    "name": { "ru": "Нержавеющий металлопрокат", "uz": "Zanglamaydigan metall prokat" },
+    "slug": "nerzhaveyushchiy-metalloprokat",
+    "description": { "ru": "Проволока, квадрат, круг, лента, лист, труба, шестигранник", "uz": "Sim, kvadrat, doira, lenta, list, quvur, olti burchak" },
+    "icon": "/images/icons/stainless.svg",
+    "image": "/images/categories/stainless.jpg",
+    "order": 2
+  },
+  {
+    "id": "trubnaya-produktsiya",
+    "name": { "ru": "Трубная продукция", "uz": "Quvur mahsulotlari" },
+    "slug": "trubnaya-produktsiya",
+    "description": { "ru": "НКТ, обсадные, бесшовные, электросварные, изолированные трубы", "uz": "NKT, qoplamali, choksiz, elektr payvandli, izolyatsiyali quvurlar" },
+    "icon": "/images/icons/pipes.svg",
+    "image": "/images/categories/pipes.jpg",
+    "order": 3
+  },
+  {
+    "id": "zapornaya-armatura",
+    "name": { "ru": "Запорная арматура и детали трубопровода", "uz": "To'siq armaturasi va quvur detallari" },
+    "slug": "zapornaya-armatura",
+    "description": { "ru": "Арматура, фитинги, теплоизоляция, ёмкости, опоры, насосы, приборы учёта", "uz": "Armatura, fitinglar, issiqlik izolyatsiyasi, idishlar, tayanchlar, nasoslar" },
+    "icon": "/images/icons/valves.svg",
+    "image": "/images/categories/valves.jpg",
+    "order": 4
+  },
+  {
+    "id": "kabelnaya-produktsiya",
+    "name": { "ru": "Кабельно-проводниковая продукция", "uz": "Kabel-o'tkazgich mahsulotlari" },
+    "slug": "kabelnaya-produktsiya",
+    "description": { "ru": "Медные и алюминиевые кабели: АВВГ, ВВГ, ВВГнг, СИП, АС", "uz": "Mis va alyuminiy kabellari: AVVG, VVG, VVGng, SIP, AS" },
+    "icon": "/images/icons/cables.svg",
+    "image": "/images/categories/cables.jpg",
+    "order": 5
+  },
+  {
+    "id": "spetsialnye-stali",
+    "name": { "ru": "Специальные стали и сплавы", "uz": "Maxsus po'latlar va qotishmalar" },
+    "slug": "spetsialnye-stali",
+    "description": { "ru": "Конструкционная, жаропрочная, инструментальная сталь, чугун", "uz": "Konstruktsion, issiqqa chidamli, asbob po'lati, cho'yan" },
+    "icon": "/images/icons/special-steel.svg",
+    "image": "/images/categories/special-steel.jpg",
+    "order": 6
+  },
+  {
+    "id": "metallurgicheskoe-syryo",
+    "name": { "ru": "Металлургическое сырье", "uz": "Metallurgik xom ashyo" },
+    "slug": "metallurgicheskoe-syryo",
+    "description": { "ru": "Ферросплавы, чушки и слитки, гранулы, баббиты", "uz": "Ferrosplavlar, quyma va slitoklar, granulalar, babbitlar" },
+    "icon": "/images/icons/raw-materials.svg",
+    "image": "/images/categories/raw-materials.jpg",
+    "order": 7
+  },
+  {
+    "id": "svarochnye-materialy",
+    "name": { "ru": "Сварочные материалы и метизная продукция", "uz": "Payvandlash materiallari va metiz mahsulotlari" },
+    "slug": "svarochnye-materialy",
+    "description": { "ru": "Электроды, припои, флюсы, болты, гайки, шайбы, шпильки", "uz": "Elektrodlar, lehimlar, flyuslar, boltlar, gaykalar, shaybalar, shpilkalar" },
+    "icon": "/images/icons/welding.svg",
+    "image": "/images/categories/welding.jpg",
+    "order": 8
+  }
+]

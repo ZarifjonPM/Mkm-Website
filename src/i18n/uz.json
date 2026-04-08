@@ -1,0 +1,172 @@
+{
+  "nav": {
+    "home": "Bosh sahifa",
+    "about": "Biz haqimizda",
+    "catalog": "Katalog",
+    "services": "Xizmatlar",
+    "partners": "Hamkorlar",
+    "contacts": "Kontaktlar"
+  },
+  "hero": {
+    "title": "Metall prokat va quvur mahsulotlari yetkazib berish",
+    "subtitle": "O'zbekistonda sanoat mahsulotlarining ishonchli yetkazib beruvchisi",
+    "ctaCatalog": "Katalogga o'tish",
+    "ctaQuote": "Ariza qoldirish"
+  },
+  "categories": {
+    "title": "Bizning mahsulotlar",
+    "subtitle": "Metall prokat va sanoat mahsulotlarining keng assortimenti"
+  },
+  "stats": {
+    "categories": "mahsulot toifalari",
+    "products": "nomlanishlar",
+    "standards": "xalqaro standartlar",
+    "experience": "yil bozorda"
+  },
+  "cta": {
+    "title": "Maslahat kerakmi?",
+    "subtitle": "Ariza qoldiring va mutaxassislarimiz siz bilan bog'lanadi",
+    "button": "Bog'lanish"
+  },
+  "catalog": {
+    "title": "Mahsulotlar katalogi",
+    "filters": "Filtrlar",
+    "category": "Toifa",
+    "productType": "Mahsulot turi",
+    "material": "Material",
+    "purpose": "Maqsad",
+    "search": "Katalogda qidirish",
+    "searchPlaceholder": "Nomi, standart...",
+    "clearFilters": "Filtrlarni tozalash",
+    "results": "Topildi",
+    "items": "pozitsiya",
+    "requestQuote": "KT so'rash",
+    "standards": "Standartlar",
+    "noResults": "So'rovingiz bo'yicha hech narsa topilmadi",
+    "noResultsHint": "Filtrlash parametrlarini o'zgartirib ko'ring",
+    "allCategories": "Barcha toifalar",
+    "allTypes": "Barcha turlar",
+    "allMaterials": "Barcha materiallar",
+    "allPurposes": "Barcha maqsadlar"
+  },
+  "materials": {
+    "carbon-steel": "Uglerodli po'lat",
+    "stainless-steel": "Zanglamaydigan po'lat",
+    "alloy-steel": "Legirlangan po'lat",
+    "cast-iron": "Cho'yan",
+    "non-ferrous": "Rangli metallar"
+  },
+  "purposes": {
+    "oil-gas": "Neftgaz sanoati",
+    "construction": "Qurilish",
+    "mechanical": "Mashinasozlik",
+    "electrical": "Elektr tarmoqlari",
+    "industrial": "Sanoat"
+  },
+  "about": {
+    "title": "Kompaniya haqida",
+    "description": "MKM Metal — O'zbekistonda metall prokat, quvur mahsulotlari va sanoat materiallarining ishonchli yetkazib beruvchisi. Biz neftgaz sohasi, qurilish va sanoat korxonalari uchun kompleks yetkazib berishni ta'minlaymiz.",
+    "industriesTitle": "Qo'llash sohalari",
+    "industries": {
+      "oilGas": "Neftgaz sohasi",
+      "oilGasDesc": "Neftgaz ob'ektlari uchun quvurlar, armatura va maxsus po'latlar yetkazib berish",
+      "construction": "Qurilish",
+      "constructionDesc": "Qurilish loyihalari uchun metall prokat, armatura va profnastil",
+      "industrial": "Sanoat",
+      "industrialDesc": "Sanoat korxonalarini kompleks ta'minlash",
+      "energy": "Energetika",
+      "energyDesc": "Energetika ob'ektlari uchun kabel mahsulotlari va materiallar"
+    },
+    "standardsTitle": "Sifat standartlari",
+    "standardsDesc": "Barcha mahsulotlar xalqaro va milliy standartlarga mos keladi"
+  },
+  "services": {
+    "title": "Bizning xizmatlar",
+    "subtitle": "Biznesingiz uchun kompleks yechimlar",
+    "items": {
+      "supply": {
+        "title": "Ob'ektlarni komplektlash",
+        "description": "Sanoat va qurilish ob'ektlarini metall prokat va quvur mahsulotlari bilan to'liq komplektlash"
+      },
+      "pipeline": {
+        "title": "Quvur tizimlarini yetkazib berish",
+        "description": "Quvur tizimlari uchun quvurlar, fitinglar va to'siq armaturasini kompleks yetkazib berish"
+      },
+      "standards": {
+        "title": "Standartlar bo'yicha tanlash",
+        "description": "GOST, ASTM, DIN va boshqa normativlar bo'yicha mahsulotlarni professional tanlash"
+      },
+      "oilgas": {
+        "title": "Neftgaz uchun yetkazib berish",
+        "description": "Neftgaz sohasi uchun ixtisoslashtirilgan yetkazib berishlar: NKT quvurlari, qoplamali, to'siq armaturasi"
+      }
+    }
+  },
+  "partners": {
+    "title": "Bizning hamkorlar",
+    "subtitle": "Yetakchi ishlab chiqaruvchilar va yetkazib beruvchilar bilan ishlaymiz"
+  },
+  "contacts": {
+    "title": "Kontaktlar",
+    "subtitle": "Maslahat olish uchun biz bilan bog'laning",
+    "phone": "Telefon",
+    "email": "Email",
+    "address": "Manzil",
+    "addressValue": "Toshkent sh., Temirchi ko'ch., 19",
+    "formTitle": "Qayta aloqa",
+    "formName": "Ism",
+    "formCompany": "Kompaniya",
+    "formPhone": "Telefon",
+    "formEmail": "Email",
+    "formMessage": "Xabar",
+    "formSubmit": "Yuborish",
+    "formSuccess": "Xabar yuborildi! Tez orada siz bilan bog'lanamiz.",
+    "formError": "Yuborishda xatolik. Keyinroq urinib ko'ring."
+  },
+  "quote": {
+    "title": "Tijorat taklifini so'rash",
+    "name": "Ism",
+    "company": "Kompaniya",
+    "phone": "Telefon",
+    "email": "Email",
+    "message": "Xabar",
+    "category": "Toifa",
+    "submit": "Arizani yuborish",
+    "success": "Ariza yuborildi! Biz KT tayyorlab, siz bilan bog'lanamiz.",
+    "error": "Yuborishda xatolik. Keyinroq urinib ko'ring.",
+    "namePlaceholder": "Ismingiz",
+    "companyPlaceholder": "Kompaniya nomi",
+    "phonePlaceholder": "+998 XX XXX XX XX",
+    "emailPlaceholder": "email@company.uz",
+    "messagePlaceholder": "Ehtiyojingizni tasvirlab bering..."
+  },
+  "chat": {
+    "welcome": "Assalomu alaykum! Sizni nima qiziqtiradi?",
+    "purpose": "Qaysi soha uchun mahsulot kerak?",
+    "contact": "Ajoyib! Kontaktlaringizni qoldiring, biz siz bilan bog'lanamiz.",
+    "submitted": "Rahmat! Arizangiz yuborildi. Tez orada siz bilan bog'lanamiz.",
+    "options": {
+      "metalloprokat": "Metall prokat",
+      "truby": "Quvurlar",
+      "armatura": "Armatura",
+      "kabel": "Kabel",
+      "other": "Boshqa",
+      "oilGas": "Neftgaz",
+      "construction": "Qurilish",
+      "industrial": "Sanoat",
+      "otherPurpose": "Boshqa"
+    },
+    "name": "Ismingiz",
+    "phone": "Telefon",
+    "submit": "Yuborish",
+    "open": "Chat",
+    "close": "Yopish"
+  },
+  "footer": {
+    "description": "O'zbekistonda metall prokat va quvur mahsulotlarining ishonchli yetkazib beruvchisi",
+    "navigation": "Navigatsiya",
+    "products": "Mahsulotlar",
+    "contactUs": "Biz bilan bog'laning",
+    "rights": "Barcha huquqlar himoyalangan"
+  }
+}
