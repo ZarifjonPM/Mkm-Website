@@ -4,6 +4,23 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FormField, AdminInput, AdminTextarea } from "./FormField";
 
+const TRANSLIT: Record<string, string> = {
+  а:"a",б:"b",в:"v",г:"g",д:"d",е:"e",ё:"yo",ж:"zh",з:"z",и:"i",й:"j",
+  к:"k",л:"l",м:"m",н:"n",о:"o",п:"p",р:"r",с:"s",т:"t",у:"u",ф:"f",
+  х:"kh",ц:"ts",ч:"ch",ш:"sh",щ:"sch",ъ:"",ы:"y",ь:"",э:"e",ю:"yu",я:"ya",
+};
+
+function toSlug(ru: string): string {
+  return ru
+    .toLowerCase()
+    .split("")
+    .map((c) => TRANSLIT[c] ?? (c === " " ? "-" : c))
+    .join("")
+    .replace(/[^a-z0-9-]/g, "")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
 interface CategoryFormData {
   id: string;
   nameRu: string;
@@ -43,6 +60,13 @@ export function CategoryForm({ initialData, mode }: CategoryFormProps) {
   function set(field: keyof CategoryFormData, value: unknown) {
     setForm((prev) => ({ ...prev, [field]: value }));
     setErrors((prev) => ({ ...prev, [field]: undefined }));
+  }
+
+  function handleNameRuChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const val = e.target.value;
+    const slug = toSlug(val);
+    setForm((prev) => ({ ...prev, nameRu: val, id: slug, slug }));
+    setErrors((prev) => ({ ...prev, nameRu: undefined, id: undefined, slug: undefined }));
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -87,22 +111,11 @@ export function CategoryForm({ initialData, mode }: CategoryFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6 max-w-3xl bg-white rounded-xl border border-slate-200 p-8 shadow-sm">
-      {mode === "create" && (
-        <FormField label="ID (slug)" error={errors.id} required>
-          <AdminInput
-            value={form.id}
-            onChange={(e) => set("id", e.target.value)}
-            placeholder="nazvanie-kategorii"
-            error={!!errors.id}
-          />
-        </FormField>
-      )}
-
       <div className="grid grid-cols-2 gap-4">
         <FormField label="Название (RU)" error={errors.nameRu} required>
           <AdminInput
             value={form.nameRu}
-            onChange={(e) => set("nameRu", e.target.value)}
+            onChange={mode === "create" ? handleNameRuChange : (e) => set("nameRu", e.target.value)}
             error={!!errors.nameRu}
           />
         </FormField>
@@ -114,15 +127,6 @@ export function CategoryForm({ initialData, mode }: CategoryFormProps) {
           />
         </FormField>
       </div>
-
-      <FormField label="Slug (URL)" error={errors.slug} required>
-        <AdminInput
-          value={form.slug}
-          onChange={(e) => set("slug", e.target.value)}
-          placeholder="nazvanie-kategorii"
-          error={!!errors.slug}
-        />
-      </FormField>
 
       <div className="grid grid-cols-2 gap-4">
         <FormField label="Описание (RU)" error={errors.descRu} required>

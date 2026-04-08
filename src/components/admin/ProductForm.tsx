@@ -6,6 +6,23 @@ import { FormField, AdminInput, AdminTextarea, AdminSelect } from "./FormField";
 import { MultiSelect } from "./MultiSelect";
 import { StandardsInput } from "./StandardsInput";
 
+const TRANSLIT: Record<string, string> = {
+  а:"a",б:"b",в:"v",г:"g",д:"d",е:"e",ё:"yo",ж:"zh",з:"z",и:"i",й:"j",
+  к:"k",л:"l",м:"m",н:"n",о:"o",п:"p",р:"r",с:"s",т:"t",у:"u",ф:"f",
+  х:"kh",ц:"ts",ч:"ch",ш:"sh",щ:"sch",ъ:"",ы:"y",ь:"",э:"e",ю:"yu",я:"ya",
+};
+
+function toSlug(ru: string): string {
+  return ru
+    .toLowerCase()
+    .split("")
+    .map((c) => TRANSLIT[c] ?? (c === " " ? "-" : c))
+    .join("")
+    .replace(/[^a-z0-9-]/g, "")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
 const MATERIALS = [
   { value: "carbon-steel", label: "Чёрная сталь" },
   { value: "stainless-steel", label: "Нержавейка" },
@@ -73,6 +90,12 @@ export function ProductForm({ initialData, categories, mode }: ProductFormProps)
     setErrors((prev) => ({ ...prev, [field]: undefined }));
   }
 
+  function handleNameRuChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const val = e.target.value;
+    setForm((prev) => ({ ...prev, nameRu: val, id: toSlug(val) }));
+    setErrors((prev) => ({ ...prev, nameRu: undefined, id: undefined }));
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setServerError("");
@@ -115,27 +138,12 @@ export function ProductForm({ initialData, categories, mode }: ProductFormProps)
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6 max-w-3xl bg-white rounded-xl border border-slate-200 p-8 shadow-sm">
-      {/* ID — only on create */}
-      {mode === "create" && (
-        <FormField label="ID (slug)" error={errors.id} required>
-          <AdminInput
-            value={form.id}
-            onChange={(e) => set("id", e.target.value)}
-            placeholder="naprimer-nazvanie-produkta"
-            error={!!errors.id}
-          />
-          <p className="mt-1 text-xs text-gray-400">
-            Только латинские буквы, цифры и дефисы. Нельзя изменить после создания.
-          </p>
-        </FormField>
-      )}
-
       {/* Names */}
       <div className="grid grid-cols-2 gap-4">
         <FormField label="Название (RU)" error={errors.nameRu} required>
           <AdminInput
             value={form.nameRu}
-            onChange={(e) => set("nameRu", e.target.value)}
+            onChange={mode === "create" ? handleNameRuChange : (e) => set("nameRu", e.target.value)}
             error={!!errors.nameRu}
           />
         </FormField>
