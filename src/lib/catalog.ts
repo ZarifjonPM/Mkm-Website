@@ -1,9 +1,66 @@
-import type { Product, CatalogFilters } from "@/types/catalog";
+import type { Product, Category, CatalogFilters, MaterialId, PurposeId } from "@/types/catalog";
 import type { Locale } from "@/i18n/config";
-import catalogData from "@/data/catalog.json";
+import { prisma } from "@/lib/db";
 
-export function getAllProducts(): Product[] {
-  return catalogData.products as Product[];
+function toProduct(row: {
+  id: string;
+  nameRu: string;
+  nameUz: string;
+  descRu: string;
+  descUz: string;
+  categoryId: string;
+  typeRu: string;
+  typeUz: string;
+  materials: string[];
+  purposes: string[];
+  standards: string[];
+}): Product {
+  return {
+    id: row.id,
+    name: { ru: row.nameRu, uz: row.nameUz },
+    description: { ru: row.descRu, uz: row.descUz },
+    categoryId: row.categoryId,
+    productType: { ru: row.typeRu, uz: row.typeUz },
+    materials: row.materials as MaterialId[],
+    purposes: row.purposes as PurposeId[],
+    standards: row.standards,
+  };
+}
+
+function toCategory(row: {
+  id: string;
+  nameRu: string;
+  nameUz: string;
+  slug: string;
+  descRu: string;
+  descUz: string;
+  icon: string;
+  image: string;
+  order: number;
+}): Category {
+  return {
+    id: row.id,
+    name: { ru: row.nameRu, uz: row.nameUz },
+    slug: row.slug,
+    description: { ru: row.descRu, uz: row.descUz },
+    icon: row.icon,
+    image: row.image,
+    order: row.order,
+  };
+}
+
+export async function getAllProducts(): Promise<Product[]> {
+  const rows = await prisma.product.findMany({
+    orderBy: [{ categoryId: "asc" }, { id: "asc" }],
+  });
+  return rows.map(toProduct);
+}
+
+export async function getAllCategories(): Promise<Category[]> {
+  const rows = await prisma.category.findMany({
+    orderBy: { order: "asc" },
+  });
+  return rows.map(toCategory);
 }
 
 export function filterProducts(

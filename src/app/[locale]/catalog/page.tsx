@@ -16,7 +16,7 @@ export default async function CatalogPage({
 }) {
   const locale = params.locale as Locale;
   const dict = await getDictionary(locale);
-  const products = getAllProducts();
+  const products = await getAllProducts();
 
   return (
     <section className="bg-surface py-12 lg:py-16">
