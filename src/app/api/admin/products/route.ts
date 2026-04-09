@@ -29,6 +29,7 @@ const productSchema = z.object({
     )
     .min(1),
   standards: z.array(z.string().min(1)),
+  image: z.string().optional(),
 });
 
 export async function GET(request: NextRequest) {
@@ -78,6 +79,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Product with this ID already exists" }, { status: 409 });
   }
 
-  const product = await prisma.product.create({ data: parsed.data });
+  const product = await prisma.product.create({
+    data: { ...parsed.data, image: parsed.data.image ?? "" },
+  });
   return NextResponse.json(product, { status: 201 });
 }

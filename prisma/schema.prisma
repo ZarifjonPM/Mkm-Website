@@ -18,6 +18,7 @@ model Product {
   materials   String[]
   purposes    String[]
   standards   String[]
+  image       String   @default("")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 

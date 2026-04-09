@@ -28,6 +28,7 @@ const updateSchema = z.object({
     )
     .min(1),
   standards: z.array(z.string().min(1)),
+  image: z.string().optional(),
 });
 
 export async function GET(
