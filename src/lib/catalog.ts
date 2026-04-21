@@ -14,6 +14,7 @@ function toProduct(row: {
   materials: string[];
   purposes: string[];
   standards: string[];
+  image: string;
 }): Product {
   return {
     id: row.id,
@@ -24,6 +25,7 @@ function toProduct(row: {
     materials: row.materials as MaterialId[],
     purposes: row.purposes as PurposeId[],
     standards: row.standards,
+    image: row.image ?? "",
   };
 }
 
