@@ -28,6 +28,7 @@ export interface Product {
   materials: MaterialId[];
   purposes: PurposeId[];
   standards: string[];
+  image: string;
 }
 
 export interface Category {
