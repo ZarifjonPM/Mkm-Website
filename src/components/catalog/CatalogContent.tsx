@@ -349,7 +349,7 @@ export function CatalogContent({
                 {/* Product image */}
                 <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
                   <Image
-                    src={getProductImage(product.categoryId, index)}
+                    src={product.image || getProductImage(product.categoryId, index)}
                     alt={product.name[locale]}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
