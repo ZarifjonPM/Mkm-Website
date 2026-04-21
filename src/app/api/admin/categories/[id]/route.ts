@@ -1,7 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { requireAuth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { z } from "zod";
+
+function revalidateCatalog() {
+  revalidatePath("/ru/catalog");
+  revalidatePath("/uz/catalog");
+  revalidatePath("/ru");
+  revalidatePath("/uz");
+}
 
 const updateSchema = z.object({
   nameRu: z.string().min(2).max(200),
@@ -64,6 +72,7 @@ export async function PUT(
     data,
   });
 
+  revalidateCatalog();
   return NextResponse.json(category);
 }
 
@@ -89,5 +98,6 @@ export async function DELETE(
   }
 
   await prisma.category.delete({ where: { id: params.id } });
+  revalidateCatalog();
   return NextResponse.json({ success: true });
 }

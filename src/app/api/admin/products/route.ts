@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { requireAuth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { z } from "zod";
@@ -82,5 +83,11 @@ export async function POST(request: NextRequest) {
   const product = await prisma.product.create({
     data: { ...parsed.data, image: parsed.data.image ?? "" },
   });
+
+  revalidatePath("/ru/catalog");
+  revalidatePath("/uz/catalog");
+  revalidatePath("/ru");
+  revalidatePath("/uz");
+
   return NextResponse.json(product, { status: 201 });
 }

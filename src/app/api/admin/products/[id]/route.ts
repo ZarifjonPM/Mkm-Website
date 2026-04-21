@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { requireAuth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { z } from "zod";
@@ -30,6 +31,13 @@ const updateSchema = z.object({
   standards: z.array(z.string().min(1)),
   image: z.string().optional(),
 });
+
+function revalidateCatalog() {
+  revalidatePath("/ru/catalog");
+  revalidatePath("/uz/catalog");
+  revalidatePath("/ru");
+  revalidatePath("/uz");
+}
 
 export async function GET(
   request: NextRequest,
@@ -66,6 +74,7 @@ export async function PUT(
     data: parsed.data,
   });
 
+  revalidateCatalog();
   return NextResponse.json(product);
 }
 
@@ -77,5 +86,6 @@ export async function DELETE(
   if (denied) return denied;
 
   await prisma.product.delete({ where: { id: params.id } });
+  revalidateCatalog();
   return NextResponse.json({ success: true });
 }

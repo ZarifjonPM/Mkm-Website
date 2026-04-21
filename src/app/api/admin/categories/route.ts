@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { requireAuth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { z } from "zod";
@@ -57,5 +58,11 @@ export async function POST(request: NextRequest) {
       order: parsed.data.order ?? nextOrder,
     },
   });
+
+  revalidatePath("/ru/catalog");
+  revalidatePath("/uz/catalog");
+  revalidatePath("/ru");
+  revalidatePath("/uz");
+
   return NextResponse.json(category, { status: 201 });
 }
