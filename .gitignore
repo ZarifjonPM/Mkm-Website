@@ -44,6 +44,7 @@ next-env.d.ts
 *.png
 *.jpeg
 !public/**
+!src/app/icon.jpg
 
 # claude internal
 .claude/
