@@ -4,9 +4,38 @@ import type { Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 
-export const metadata: Metadata = {
-  title: "Партнеры",
-};
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://mkm-metal.uz";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  const locale = params.locale as Locale;
+
+  const title = locale === "uz" ? "Hamkorlar" : "Партнёры";
+  const description =
+    locale === "uz"
+      ? "Bizning hamkorlarimiz — Rossiya, Yevropa va Osiyoning yetakchi metall prokat ishlab chiqaruvchilari. 30+ ishonchli hamkor."
+      : "Наши партнёры — ведущие производители металлопроката из России, Европы и Азии. Более 30 надёжных поставщиков.";
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `${BASE_URL}/${locale}/partners`,
+      languages: {
+        ru: `${BASE_URL}/ru/partners`,
+        uz: `${BASE_URL}/uz/partners`,
+      },
+    },
+    openGraph: {
+      url: `${BASE_URL}/${locale}/partners`,
+      title,
+      description,
+    },
+  };
+}
 
 // All partner logos (skip empty files: 4 and 19)
 const allPartnerLogos = Array.from({ length: 34 }, (_, i) => i)

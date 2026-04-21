@@ -5,9 +5,38 @@ import { SectionHeading } from "@/components/shared/SectionHeading";
 import { CONTACT } from "@/lib/constants";
 import { ContactForm } from "@/components/contacts/ContactForm";
 
-export const metadata: Metadata = {
-  title: "Контакты",
-};
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://mkm-metal.uz";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  const locale = params.locale as Locale;
+
+  const title = locale === "uz" ? "Kontaktlar" : "Контакты";
+  const description =
+    locale === "uz"
+      ? "MKM Metal bilan bog'laning: +998 88 999 38 38. Toshkent sh., Temirchi ko'ch., 19. Online so'rov yuborish."
+      : "Свяжитесь с MKM Metal: +998 88 999 38 38. Ташкент, ул. Темирчи, 19. Онлайн-заявка на поставку металлопроката.";
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `${BASE_URL}/${locale}/contacts`,
+      languages: {
+        ru: `${BASE_URL}/ru/contacts`,
+        uz: `${BASE_URL}/uz/contacts`,
+      },
+    },
+    openGraph: {
+      url: `${BASE_URL}/${locale}/contacts`,
+      title,
+      description,
+    },
+  };
+}
 
 export default async function ContactsPage({
   params,

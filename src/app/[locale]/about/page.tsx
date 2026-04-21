@@ -4,9 +4,35 @@ import type { Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 
-export const metadata: Metadata = {
-  title: "О компании",
-};
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://mkm-metal.uz";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  const locale = params.locale as Locale;
+
+  const title = locale === "uz" ? "Kompaniya haqida" : "О компании";
+  const description =
+    locale === "uz"
+      ? "MKM Metal — O'zbekiston metall prokat bozorida 10 yildan ortiq. Neft-gaz, qurilish va energetika sohalari uchun yetkazib berish. GOST, ASTM, DIN, API, ISO."
+      : "MKM Metal — более 10 лет на рынке металлопроката Узбекистана. Поставки для нефтегазовой, строительной и энергетической отраслей. Стандарты ГОСТ, ASTM, DIN, API, ISO.";
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `${BASE_URL}/${locale}/about`,
+      languages: { ru: `${BASE_URL}/ru/about`, uz: `${BASE_URL}/uz/about` },
+    },
+    openGraph: {
+      url: `${BASE_URL}/${locale}/about`,
+      title,
+      description,
+    },
+  };
+}
 
 const industries = [
   { key: "oilGas" as const, image: "/images/oil-gas.jpeg" },

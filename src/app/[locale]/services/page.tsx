@@ -5,9 +5,38 @@ import { getDictionary } from "@/i18n/get-dictionary";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import services from "@/data/services.json";
 
-export const metadata: Metadata = {
-  title: "Сервисы",
-};
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://mkm-metal.uz";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  const locale = params.locale as Locale;
+
+  const title = locale === "uz" ? "Xizmatlar" : "Услуги";
+  const description =
+    locale === "uz"
+      ? "Kompleks xizmatlar: metall prokat yetkazib berish, sertifikatlash, buyurtma bo'yicha metall kesish va qayta ishlash."
+      : "Комплексные услуги: поставка металлопроката, сертификация продукции, резка и обработка металла под заказ.";
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `${BASE_URL}/${locale}/services`,
+      languages: {
+        ru: `${BASE_URL}/ru/services`,
+        uz: `${BASE_URL}/uz/services`,
+      },
+    },
+    openGraph: {
+      url: `${BASE_URL}/${locale}/services`,
+      title,
+      description,
+    },
+  };
+}
 
 const serviceImages: Record<string, string> = {
   building: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80",
