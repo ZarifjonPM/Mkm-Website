@@ -148,11 +148,11 @@ export default async function LocaleLayout({
           <ChatWidget locale={locale} dict={dict} />
           <QuoteModal dict={dict} />
           <SplashScreen />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-          />
         </QuoteModalProvider>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
       </body>
     </html>
   );
