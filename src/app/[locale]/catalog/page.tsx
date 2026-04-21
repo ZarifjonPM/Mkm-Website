@@ -5,6 +5,8 @@ import { getAllProducts } from "@/lib/catalog";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { CatalogClient } from "@/components/catalog/CatalogClient";
 
+export const dynamic = "force-dynamic";
+
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://mkm-metal.uz";
 
 export async function generateMetadata({

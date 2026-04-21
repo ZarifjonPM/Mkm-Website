@@ -141,10 +141,6 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body className={`${inter.className} antialiased`}>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-        />
         <QuoteModalProvider>
           <Header locale={locale} dict={dict} />
           <main className="min-h-screen">{children}</main>
@@ -152,6 +148,10 @@ export default async function LocaleLayout({
           <ChatWidget locale={locale} dict={dict} />
           <QuoteModal dict={dict} />
           <SplashScreen />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+          />
         </QuoteModalProvider>
       </body>
     </html>
