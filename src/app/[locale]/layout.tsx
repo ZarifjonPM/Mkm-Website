@@ -9,6 +9,8 @@ import { QuoteModalProvider } from "@/components/shared/QuoteModalProvider";
 import { QuoteModal } from "@/components/shared/QuoteModal";
 import { SplashScreen } from "@/components/shared/SplashScreen";
 import { ChatWidget } from "@/components/chat/ChatWidget";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({ subsets: ["latin", "cyrillic"] });
 
@@ -153,6 +155,8 @@ export default async function LocaleLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
