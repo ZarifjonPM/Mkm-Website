@@ -6,6 +6,7 @@ import { CategoryGrid } from "@/components/home/CategoryGrid";
 import { StatsSection } from "@/components/home/StatsSection";
 import { CTASection } from "@/components/home/CTASection";
 import { PartnersCarousel } from "@/components/home/PartnersCarousel";
+import { getActivePartners } from "@/lib/partners";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://mkm-metal.uz";
 
@@ -48,13 +49,17 @@ export default async function HomePage({
 }) {
   const locale = params.locale as Locale;
   const dict = await getDictionary(locale);
+  const partners = await getActivePartners();
 
   return (
     <>
       <HeroSection locale={locale} dict={dict} />
       <CategoryGrid locale={locale} dict={dict} />
       <StatsSection dict={dict} />
-      <PartnersCarousel dict={dict} />
+      <PartnersCarousel
+        dict={dict}
+        partners={partners.map((p) => ({ id: p.id, logo: p.logo, name: p.name }))}
+      />
       <CTASection dict={dict} locale={locale} />
     </>
   );

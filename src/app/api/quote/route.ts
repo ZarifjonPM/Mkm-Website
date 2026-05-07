@@ -17,12 +17,13 @@ export async function POST(request: NextRequest) {
     const { name, company, phone, email, message, category, productName } =
       parsed.data;
 
-    const text =
+    let text =
       `📋 <b>Запрос КП: ${productName || category || "Общий запрос"}</b>\n\n` +
       `<b>Имя:</b> ${name}\n` +
       `<b>Компания:</b> ${company || "—"}\n` +
-      `<b>Телефон:</b> ${phone}\n` +
-      `<b>Email:</b> ${email}\n` +
+      `<b>Телефон:</b> ${phone}\n`;
+    if (email) text += `<b>Email:</b> ${email}\n`;
+    text +=
       `<b>Категория:</b> ${category || "—"}\n` +
       `<b>Продукт:</b> ${productName || "—"}\n` +
       `<b>Сообщение:</b> ${message}`;

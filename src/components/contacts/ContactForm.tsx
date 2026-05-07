@@ -69,7 +69,6 @@ export function ContactForm({ dict }: ContactFormProps) {
           name="email"
           type="email"
           label={dict.contacts.formEmail}
-          required
         />
       </div>
       <Textarea
