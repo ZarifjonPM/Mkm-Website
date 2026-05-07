@@ -39,3 +39,45 @@ model Category {
   order    Int
   products Product[]
 }
+
+model Service {
+  id            String   @id @default(cuid())
+  slug          String   @unique
+  icon          String
+  titleRu       String
+  titleUz       String
+  descriptionRu String   @db.Text
+  descriptionUz String   @db.Text
+  image         String   @default("")
+  order         Int      @default(0)
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Partner {
+  id        String   @id @default(cuid())
+  name      String
+  logo      String
+  url       String?
+  order     Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SiteSettings {
+  id             String   @id @default("singleton")
+  phone1         String
+  phone2         String   @default("")
+  email          String   @default("")
+  addressRu      String
+  addressUz      String
+  mapEmbedUrl    String   @db.Text
+  telegramUrl    String   @default("")
+  instagramUrl   String   @default("")
+  whatsappUrl    String   @default("")
+  workingHoursRu String   @default("")
+  workingHoursUz String   @default("")
+  updatedAt      DateTime @updatedAt
+}
