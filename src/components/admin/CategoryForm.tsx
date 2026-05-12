@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { FormField, AdminInput, AdminTextarea } from "./FormField";
+import { ImageUploader } from "./ImageUploader";
 
 const TRANSLIT: Record<string, string> = {
   а:"a",б:"b",в:"v",г:"g",д:"d",е:"e",ё:"yo",ж:"zh",з:"z",и:"i",й:"j",
@@ -126,6 +127,12 @@ export function CategoryForm({ initialData, mode }: CategoryFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6 max-w-3xl bg-white rounded-xl border border-slate-200 p-8 shadow-sm">
+      <ImageUploader
+        value={form.image}
+        onChange={(url) => set("image", url)}
+        label="Фото категории"
+      />
+
       <div className="grid grid-cols-2 gap-4">
         <FormField label="Название (RU)" error={errors.nameRu} required>
           <AdminInput

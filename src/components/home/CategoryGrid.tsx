@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/get-dictionary";
-import categories from "@/data/categories.json";
+import { getAllCategories } from "@/lib/catalog";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 
 interface CategoryGridProps {
@@ -10,7 +10,7 @@ interface CategoryGridProps {
   dict: Dictionary;
 }
 
-const categoryPhotos: Record<string, string> = {
+const FALLBACK_PHOTOS: Record<string, string> = {
   "cherniy-metalloprokat": "/images/catalog/black-metal-0.png",
   "nerzhaveyushchiy-metalloprokat": "/images/catalog/stainless-1.png",
   "trubnaya-produktsiya": "/images/catalog/pipes-1.png",
@@ -21,7 +21,16 @@ const categoryPhotos: Record<string, string> = {
   "svarochnye-materialy": "/images/catalog/welding-0.png",
 };
 
-export function CategoryGrid({ locale, dict }: CategoryGridProps) {
+const DEFAULT_FALLBACK = "/images/catalog/black-metal-0.png";
+
+function resolveCategoryImage(id: string, image: string): string {
+  if (image && !image.startsWith("/images/categories/")) return image;
+  return FALLBACK_PHOTOS[id] ?? DEFAULT_FALLBACK;
+}
+
+export async function CategoryGrid({ locale, dict }: CategoryGridProps) {
+  const categories = await getAllCategories();
+
   return (
     <section className="bg-surface py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -39,7 +48,7 @@ export function CategoryGrid({ locale, dict }: CategoryGridProps) {
             >
               <div className="relative h-40 overflow-hidden bg-gray-100">
                 <Image
-                  src={categoryPhotos[cat.id] || "/images/catalog/black-metal-0.png"}
+                  src={resolveCategoryImage(cat.id, cat.image)}
                   alt={cat.name[locale as keyof typeof cat.name]}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"

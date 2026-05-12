@@ -12,7 +12,7 @@ interface FooterProps {
 }
 
 export async function Footer({ locale, dict }: FooterProps) {
-  const year = new Date().getFullYear();
+  const year = 2021;
   const settings = await getSiteSettings();
   const phones = getPhonesArray(settings);
   const address = locale === "uz" ? settings.addressUz : settings.addressRu;

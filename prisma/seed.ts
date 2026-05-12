@@ -7,44 +7,34 @@ import * as categoriesData from "../src/data/categories.json";
 
 const SERVICES_SEED = [
   {
-    slug: "supply",
+    slug: "coating",
     icon: "building",
-    titleRu: "Комплектация объектов",
-    titleUz: "Ob'ektlarni komplektlash",
+    titleRu: "Цинкование, окраска",
+    titleUz: "Sinklash, bo'yash",
     descriptionRu:
-      "Полная комплектация промышленных и строительных объектов металлопрокатом и трубной продукцией. Индивидуальный подбор материалов под ваш проект.",
+      "Антикоррозийная защита металлоизделий: горячее и холодное цинкование, порошковая окраска. Долговечная защита от коррозии и механических воздействий.",
     descriptionUz:
-      "Sanoat va qurilish ob'ektlarini metall prokat va quvur mahsulotlari bilan to'liq komplektlash. Loyihangiz uchun individual material tanlash.",
+      "Metall mahsulotlarni korroziyadan himoya qilish: issiq va sovuq sinklash, kukunli bo'yash. Korroziya va mexanik ta'sirlardan uzoq muddatli himoya.",
   },
   {
-    slug: "pipeline",
+    slug: "laser",
     icon: "pipe",
-    titleRu: "Поставка трубопроводных систем",
-    titleUz: "Quvur tizimlarini yetkazib berish",
+    titleRu: "Лазерная резка, гибка, перфорирование",
+    titleUz: "Lazerli kesish, egish, perforatsiya",
     descriptionRu:
-      "Комплексная поставка труб, фитингов и запорной арматуры для трубопроводных систем любой сложности.",
+      "Высокоточная лазерная резка, гибка листового металла и перфорирование по чертежам заказчика. Минимальные допуски и чистый рез без заусенцев.",
     descriptionUz:
-      "Har qanday murakkablikdagi quvur tizimlari uchun quvurlar, fitinglar va to'siq armaturasini kompleks yetkazib berish.",
+      "Buyurtmachining chizmalari bo'yicha yuqori aniqlikdagi lazerli kesish, list metallni egish va perforatsiya. Minimal toleranslar va chuqursiz toza kesim.",
   },
   {
-    slug: "standards",
+    slug: "turning",
     icon: "certificate",
-    titleRu: "Подбор по стандартам",
-    titleUz: "Standartlar bo'yicha tanlash",
+    titleRu: "Токарные услуги",
+    titleUz: "Tokarlik xizmatlari",
     descriptionRu:
-      "Профессиональный подбор продукции по стандартам ГОСТ, ASTM, DIN и другим нормативам. Консультация по выбору марок стали.",
+      "Токарная обработка металла любой сложности: изготовление деталей, валов, втулок, фланцев и нестандартных изделий по чертежам.",
     descriptionUz:
-      "GOST, ASTM, DIN va boshqa normativlar bo'yicha mahsulotlarni professional tanlash. Po'lat markalarini tanlash bo'yicha maslahat.",
-  },
-  {
-    slug: "oilgas",
-    icon: "flame",
-    titleRu: "Поставка для нефтегаза",
-    titleUz: "Neftgaz uchun yetkazib berish",
-    descriptionRu:
-      "Специализированные поставки для нефтегазовой отрасли: трубы НКТ, обсадные, насосно-компрессорные, запорная арматура высокого давления.",
-    descriptionUz:
-      "Neftgaz sohasi uchun ixtisoslashtirilgan yetkazib berishlar: NKT quvurlari, qoplamali, nasos-kompressor, yuqori bosimli to'siq armaturasi.",
+      "Har qanday murakkablikdagi metall tokarlik ishlovi: chizmalar bo'yicha detallar, vallar, gilzalar, flanetslar va nostandart mahsulotlar tayyorlash.",
   },
 ];
 
