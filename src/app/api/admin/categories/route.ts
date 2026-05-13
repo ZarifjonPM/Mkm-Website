@@ -63,6 +63,7 @@ export async function POST(request: NextRequest) {
   revalidatePath("/uz/catalog");
   revalidatePath("/ru");
   revalidatePath("/uz");
+  revalidatePath("/admin/categories");
 
   return NextResponse.json(category, { status: 201 });
 }

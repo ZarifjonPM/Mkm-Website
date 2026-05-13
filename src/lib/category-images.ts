@@ -96,8 +96,8 @@ export const heroSlides = [
     alt: { ru: "Металлопрокат", uz: "Metalloprokat" },
   },
   {
-    image: "/images/hero/slide-0.png",
-    alt: { ru: "Труба профильная квадратная", uz: "Kvadrat profilli quvur" },
+    image: "/images/hero/slide-valves-new.png",
+    alt: { ru: "Запорная арматура и фитинги", uz: "To'siq armaturasi va fitinglar" },
   },
   {
     image: "/images/hero/slide-new-2.jpg",

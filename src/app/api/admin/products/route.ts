@@ -88,6 +88,7 @@ export async function POST(request: NextRequest) {
   revalidatePath("/uz/catalog");
   revalidatePath("/ru");
   revalidatePath("/uz");
+  revalidatePath("/admin/products");
 
   return NextResponse.json(product, { status: 201 });
 }

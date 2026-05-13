@@ -34,6 +34,16 @@ const NEW_SERVICES = [
     descriptionUz:
       "Har qanday murakkablikdagi metall tokarlik ishlovi: chizmalar bo'yicha detallar, vallar, gilzalar, flanetslar va nostandart mahsulotlar tayyorlash.",
   },
+  {
+    slug: "welding",
+    icon: "flame",
+    titleRu: "Сварочные работы и изготовление металлоконструкций",
+    titleUz: "Payvandlash ishlari va metall konstruksiyalar ishlab chiqarish",
+    descriptionRu:
+      "Полуавтоматическая, аргонодуговая и ручная дуговая сварка. Изготовление металлоконструкций, рам, ограждений, баков, лестниц и других изделий по чертежам заказчика.",
+    descriptionUz:
+      "Yarim avtomatik, argon-yoy va qo'lda yoy payvandlash. Buyurtmachining chizmalari bo'yicha metall konstruksiyalar, ramkalar, to'siqlar, baklar, narvonlar va boshqa mahsulotlarni tayyorlash.",
+  },
 ];
 
 const envPath = path.resolve(process.cwd(), ".env");

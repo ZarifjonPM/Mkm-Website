@@ -9,6 +9,7 @@ function revalidateCatalog() {
   revalidatePath("/uz/catalog");
   revalidatePath("/ru");
   revalidatePath("/uz");
+  revalidatePath("/admin/categories");
 }
 
 const updateSchema = z.object({

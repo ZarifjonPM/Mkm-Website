@@ -3,6 +3,8 @@ import { prisma } from "@/lib/db";
 import { AdminTopbar } from "@/components/admin/AdminTopbar";
 import { ProductsTable } from "@/components/admin/ProductsTable";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminProductsPage({
   searchParams,
 }: {

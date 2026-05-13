@@ -37,6 +37,7 @@ function revalidateCatalog() {
   revalidatePath("/uz/catalog");
   revalidatePath("/ru");
   revalidatePath("/uz");
+  revalidatePath("/admin/products");
 }
 
 export async function GET(
