@@ -45,6 +45,8 @@ next-env.d.ts
 *.jpeg
 !public/**
 !src/app/icon.jpg
+!src/app/apple-icon.png
+!src/app/icon.png
 
 # claude internal
 .claude/
