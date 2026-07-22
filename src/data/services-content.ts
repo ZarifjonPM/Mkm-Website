@@ -428,28 +428,28 @@ export const servicesContent: Record<string, LocalizedServiceContent> = {
  */
 export const serviceGallery: Record<string, string[]> = {
   coating: [
-    "/images/catalog/special-steel-0.png",
-    "/images/catalog/special-steel-1.png",
-    "/images/catalog/special-steel-2.png",
-    "/images/catalog/black-metal2-3.png",
+    "/images/services/coating-1.jpg",
+    "/images/services/coating-2.jpg",
+    "/images/services/coating-3.jpg",
+    "/images/services/coating-4.jpg",
   ],
   laser: [
-    "/images/catalog/stainless-1.png",
-    "/images/catalog/pipes-1.png",
-    "/images/catalog/stainless-3.png",
-    "/images/catalog/black-metal-6.png",
+    "/images/services/laser-1.jpg",
+    "/images/services/laser-2.jpg",
+    "/images/services/laser-3.jpg",
+    "/images/services/laser-4.jpg",
   ],
   turning: [
-    "/images/catalog/special-steel2-0.png",
-    "/images/catalog/special-steel2-1.png",
-    "/images/catalog/stainless-7.png",
-    "/images/catalog/raw-materials-1.png",
+    "/images/services/turning-1.jpg",
+    "/images/services/turning-2.jpg",
+    "/images/services/turning-3.jpg",
+    "/images/services/turning-4.jpg",
   ],
   welding: [
-    "/images/catalog/welding-0.png",
-    "/images/catalog/welding-1.png",
-    "/images/catalog/welding-2.png",
-    "/images/catalog/welding-3.png",
+    "/images/services/welding-1.jpg",
+    "/images/services/welding-2.jpg",
+    "/images/services/welding-3.jpg",
+    "/images/services/welding-4.jpg",
   ],
 };
 
