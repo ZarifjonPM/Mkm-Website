@@ -203,7 +203,7 @@ export default function ServiceDetailPage({
 
       {/* Секции: текст + карточки */}
       <section className="bg-surface py-16 lg:py-24">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="space-y-12">
             {content.sections.map((section) => (
               <div key={section.heading}>
@@ -222,7 +222,7 @@ export default function ServiceDetailPage({
                 ))}
 
                 {section.bullets && (
-                  <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     {section.bullets.map((b) => (
                       <div
                         key={b}
