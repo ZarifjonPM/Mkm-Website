@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import type { Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { getActiveServices } from "@/lib/services";
+import { hasServiceContent } from "@/data/services-content";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://mkm-metal.uz";
 
@@ -75,11 +77,10 @@ export default async function ServicesPage({
               const title = locale === "uz" ? service.titleUz : service.titleRu;
               const description = locale === "uz" ? service.descriptionUz : service.descriptionRu;
               const image = service.image || FALLBACK_IMAGES[service.icon] || DEFAULT_FALLBACK;
-              return (
-                <div
-                  key={service.id}
-                  className="group overflow-hidden rounded-xl border border-gray-200 bg-white"
-                >
+              const hasDetail = hasServiceContent(service.slug);
+
+              const cardInner = (
+                <>
                   <div className="relative h-48 overflow-hidden bg-gray-100">
                     <Image
                       src={image}
@@ -90,9 +91,44 @@ export default async function ServicesPage({
                     />
                   </div>
                   <div className="p-6">
-                    <h3 className="mb-3 text-xl font-bold text-brand">{title}</h3>
+                    <h3 className="mb-3 text-xl font-bold text-brand group-hover:text-accent">{title}</h3>
                     <p className="text-sm leading-relaxed text-gray-500">{description}</p>
+                    {hasDetail && (
+                      <span className="mt-4 inline-flex items-center text-sm font-medium text-accent">
+                        {locale === "uz" ? "Batafsil" : "Подробнее"}
+                        <svg
+                          className="ml-1 h-4 w-4"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={2}
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                          />
+                        </svg>
+                      </span>
+                    )}
                   </div>
+                </>
+              );
+
+              return hasDetail ? (
+                <Link
+                  key={service.id}
+                  href={`/${locale}/services/${service.slug}`}
+                  className="group overflow-hidden rounded-xl border border-gray-200 bg-white transition-all hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5"
+                >
+                  {cardInner}
+                </Link>
+              ) : (
+                <div
+                  key={service.id}
+                  className="group overflow-hidden rounded-xl border border-gray-200 bg-white"
+                >
+                  {cardInner}
                 </div>
               );
             })}
