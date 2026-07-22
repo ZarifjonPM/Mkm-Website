@@ -421,6 +421,38 @@ export const servicesContent: Record<string, LocalizedServiceContent> = {
   },
 };
 
+/**
+ * Фото-галерея услуги (не зависит от локали). Пути — реальные ассеты из /public.
+ * Первый элемент используется как крупное фото рядом с вводным текстом,
+ * остальные — в блоке-галерее.
+ */
+export const serviceGallery: Record<string, string[]> = {
+  coating: [
+    "/images/catalog/special-steel-0.png",
+    "/images/catalog/special-steel-1.png",
+    "/images/catalog/special-steel-2.png",
+    "/images/catalog/black-metal2-3.png",
+  ],
+  laser: [
+    "/images/catalog/stainless-1.png",
+    "/images/catalog/pipes-1.png",
+    "/images/catalog/stainless-3.png",
+    "/images/catalog/black-metal-6.png",
+  ],
+  turning: [
+    "/images/catalog/special-steel2-0.png",
+    "/images/catalog/special-steel2-1.png",
+    "/images/catalog/stainless-7.png",
+    "/images/catalog/raw-materials-1.png",
+  ],
+  welding: [
+    "/images/catalog/welding-0.png",
+    "/images/catalog/welding-1.png",
+    "/images/catalog/welding-2.png",
+    "/images/catalog/welding-3.png",
+  ],
+};
+
 /** Список slug'ов, для которых есть контент детальной страницы. */
 export const serviceContentSlugs = Object.keys(servicesContent);
 
