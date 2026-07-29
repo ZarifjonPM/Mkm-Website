@@ -28,8 +28,8 @@ export async function generateMetadata({
   const name = category.name[locale];
   const title =
     locale === "uz"
-      ? `${name} — MKM Metal katalogi`
-      : `${name} — каталог MKM Metal`;
+      ? `${name} — metall prokat katalogi`
+      : `${name} — каталог металлопроката`;
   const description =
     category.description[locale] ||
     (locale === "uz"

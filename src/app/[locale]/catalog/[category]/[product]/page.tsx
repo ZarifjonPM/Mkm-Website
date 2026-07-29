@@ -38,8 +38,8 @@ export async function generateMetadata({
 
   const title =
     locale === "uz"
-      ? `${name} — narxi va yetkazib berish | MKM Metal`
-      : `${name} — цена и поставка | MKM Metal`;
+      ? `${name} — narxi va yetkazib berish`
+      : `${name} — цена и поставка`;
 
   const stdText = product.standards.length
     ? (locale === "uz" ? ` Standartlar: ${product.standards.join(", ")}.` : ` Стандарты: ${product.standards.join(", ")}.`)
