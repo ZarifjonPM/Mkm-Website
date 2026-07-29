@@ -10,12 +10,23 @@ interface CatalogClientProps {
   products: Product[];
   locale: Locale;
   dict: Dictionary;
+  activeCategory?: string | null;
 }
 
-export function CatalogClient({ products, locale, dict }: CatalogClientProps) {
+export function CatalogClient({
+  products,
+  locale,
+  dict,
+  activeCategory = null,
+}: CatalogClientProps) {
   return (
     <Suspense fallback={<div className="p-8 text-center text-gray-400">...</div>}>
-      <CatalogContent products={products} locale={locale} dict={dict} />
+      <CatalogContent
+        products={products}
+        locale={locale}
+        dict={dict}
+        activeCategory={activeCategory}
+      />
     </Suspense>
   );
 }

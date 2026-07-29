@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import type { Product, MaterialId, PurposeId } from "@/types/catalog";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/get-dictionary";
@@ -14,6 +15,8 @@ interface CatalogContentProps {
   products: Product[];
   locale: Locale;
   dict: Dictionary;
+  /** Active category slug when rendered on a category route (/catalog/[category]). */
+  activeCategory?: string | null;
 }
 
 const materialIds: MaterialId[] = [
@@ -36,11 +39,11 @@ export function CatalogContent({
   products,
   locale,
   dict,
+  activeCategory = null,
 }: CatalogContentProps) {
   const {
     filters,
     filteredProducts,
-    availableProductTypes,
     setFilter,
     clearFilters,
     filteredCount,
@@ -49,12 +52,15 @@ export function CatalogContent({
   const { openQuoteModal } = useQuoteModal();
   const [filtersOpen, setFiltersOpen] = useState(false);
 
+  // Product types available within the currently rendered product set
+  const availableProductTypes = useMemo(
+    () =>
+      Array.from(new Set(products.map((p) => p.productType[locale]))).sort(),
+    [products, locale]
+  );
+
   const hasActiveFilters =
-    filters.category ||
-    filters.productType ||
-    filters.material ||
-    filters.purpose ||
-    filters.search;
+    filters.productType || filters.material || filters.purpose || filters.search;
 
   return (
     <div className="flex flex-col gap-6 lg:flex-row">
@@ -77,7 +83,7 @@ export function CatalogContent({
           />
         </svg>
         {dict.catalog.filters}
-        {hasActiveFilters && (
+        {(hasActiveFilters || activeCategory) && (
           <span className="flex h-5 w-5 items-center justify-center rounded-full bg-accent text-xs text-white">
             !
           </span>
@@ -105,40 +111,40 @@ export function CatalogContent({
             />
           </div>
 
-          {/* Category */}
+          {/* Category — real URLs (/catalog/[category]) */}
           <div>
             <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-gray-400">
               {dict.catalog.category}
             </label>
             <div className="space-y-1">
-              <button
-                onClick={() => setFilter("category", null)}
+              <Link
+                href={`/${locale}/catalog`}
                 className={`block w-full rounded-md px-3 py-1.5 text-left text-sm transition-colors ${
-                  !filters.category
+                  !activeCategory
                     ? "bg-accent/10 font-medium text-accent"
                     : "text-gray-600 hover:bg-gray-50"
                 }`}
               >
                 {dict.catalog.allCategories}
-              </button>
+              </Link>
               {categories.map((cat) => (
-                <button
+                <Link
                   key={cat.id}
-                  onClick={() => setFilter("category", cat.slug)}
+                  href={`/${locale}/catalog/${cat.slug}`}
                   className={`block w-full rounded-md px-3 py-1.5 text-left text-sm transition-colors ${
-                    filters.category === cat.slug
+                    activeCategory === cat.slug
                       ? "bg-accent/10 font-medium text-accent"
                       : "text-gray-600 hover:bg-gray-50"
                   }`}
                 >
                   {cat.name[locale as keyof typeof cat.name]}
-                </button>
+                </Link>
               ))}
             </div>
           </div>
 
-          {/* Product Type (dynamic) */}
-          {filters.category && availableProductTypes.length > 0 && (
+          {/* Product Type (dynamic, only within a category) */}
+          {activeCategory && availableProductTypes.length > 1 && (
             <div>
               <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-gray-400">
                 {dict.catalog.productType}
@@ -258,19 +264,6 @@ export function CatalogContent({
 
           {hasActiveFilters && (
             <div className="flex flex-wrap gap-1.5">
-              {filters.category && (
-                <span className="inline-flex items-center gap-1 rounded-full bg-accent/10 px-2.5 py-1 text-xs font-medium text-accent">
-                  {categories.find((c) => c.slug === filters.category)?.name[
-                    locale as "ru" | "uz"
-                  ]}
-                  <button
-                    onClick={() => setFilter("category", null)}
-                    className="ml-0.5 hover:text-accent-dark"
-                  >
-                    &times;
-                  </button>
-                </span>
-              )}
               {filters.productType && (
                 <span className="inline-flex items-center gap-1 rounded-full bg-accent/10 px-2.5 py-1 text-xs font-medium text-accent">
                   {filters.productType}
@@ -346,53 +339,60 @@ export function CatalogContent({
                 key={product.id}
                 className="group flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-white transition-shadow hover:shadow-lg"
               >
-                {/* Product image */}
-                <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
-                  <Image
-                    src={product.image || getProductImage(product.categoryId, index)}
-                    alt={product.name[locale]}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                  {/* Category badge */}
-                  <div className="absolute left-3 top-3">
-                    <span className="rounded-md bg-brand/80 px-2 py-1 text-xs font-medium text-white backdrop-blur-sm">
-                      {categories.find((c) => c.slug === product.categoryId)
-                        ?.name[locale as "ru" | "uz"]}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Card content */}
-                <div className="flex flex-1 flex-col p-4">
-                  <h3 className="text-sm font-semibold leading-snug text-brand">
-                    {product.name[locale]}
-                  </h3>
-                  <p className="mt-1.5 line-clamp-2 text-xs text-gray-500">
-                    {product.description[locale]}
-                  </p>
-
-                  {/* Standards */}
-                  {product.standards.length > 0 && (
-                    <div className="mt-2.5 flex flex-wrap gap-1">
-                      {product.standards.slice(0, 3).map((std) => (
-                        <span
-                          key={std}
-                          className="rounded bg-surface px-1.5 py-0.5 text-[10px] font-medium text-gray-500"
-                        >
-                          {std}
-                        </span>
-                      ))}
-                      {product.standards.length > 3 && (
-                        <span className="rounded bg-surface px-1.5 py-0.5 text-[10px] font-medium text-gray-400">
-                          +{product.standards.length - 3}
-                        </span>
-                      )}
+                <Link
+                  href={`/${locale}/catalog/${product.categoryId}/${product.id}`}
+                  className="flex flex-1 flex-col"
+                >
+                  {/* Product image */}
+                  <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
+                    <Image
+                      src={product.image || getProductImage(product.categoryId, index)}
+                      alt={product.name[locale]}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                    {/* Category badge */}
+                    <div className="absolute left-3 top-3">
+                      <span className="rounded-md bg-brand/80 px-2 py-1 text-xs font-medium text-white backdrop-blur-sm">
+                        {categories.find((c) => c.slug === product.categoryId)
+                          ?.name[locale as "ru" | "uz"]}
+                      </span>
                     </div>
-                  )}
+                  </div>
 
-                  {/* CTA */}
+                  {/* Card content */}
+                  <div className="flex flex-1 flex-col p-4">
+                    <h3 className="text-sm font-semibold leading-snug text-brand group-hover:text-accent">
+                      {product.name[locale]}
+                    </h3>
+                    <p className="mt-1.5 line-clamp-2 text-xs text-gray-500">
+                      {product.description[locale]}
+                    </p>
+
+                    {/* Standards */}
+                    {product.standards.length > 0 && (
+                      <div className="mt-2.5 flex flex-wrap gap-1">
+                        {product.standards.slice(0, 3).map((std) => (
+                          <span
+                            key={std}
+                            className="rounded bg-surface px-1.5 py-0.5 text-[10px] font-medium text-gray-500"
+                          >
+                            {std}
+                          </span>
+                        ))}
+                        {product.standards.length > 3 && (
+                          <span className="rounded bg-surface px-1.5 py-0.5 text-[10px] font-medium text-gray-400">
+                            +{product.standards.length - 3}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </Link>
+
+                {/* CTA */}
+                <div className="px-4 pb-4">
                   <button
                     onClick={() =>
                       openQuoteModal({
@@ -403,7 +403,7 @@ export function CatalogContent({
                         productName: product.name[locale],
                       })
                     }
-                    className="mt-auto pt-3"
+                    className="w-full"
                   >
                     <span className="inline-flex w-full items-center justify-center rounded-lg bg-accent px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-accent-dark">
                       {dict.catalog.requestQuote}

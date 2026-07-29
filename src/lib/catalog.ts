@@ -65,6 +65,26 @@ export async function getAllCategories(): Promise<Category[]> {
   return rows.map(toCategory);
 }
 
+export async function getCategoryBySlug(slug: string): Promise<Category | null> {
+  const row = await prisma.category.findUnique({ where: { id: slug } });
+  return row ? toCategory(row) : null;
+}
+
+export async function getProductsByCategory(
+  categoryId: string
+): Promise<Product[]> {
+  const rows = await prisma.product.findMany({
+    where: { categoryId },
+    orderBy: { id: "asc" },
+  });
+  return rows.map(toProduct);
+}
+
+export async function getProductById(id: string): Promise<Product | null> {
+  const row = await prisma.product.findUnique({ where: { id } });
+  return row ? toProduct(row) : null;
+}
+
 export function filterProducts(
   products: Product[],
   filters: CatalogFilters,
