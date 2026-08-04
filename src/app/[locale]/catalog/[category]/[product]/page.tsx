@@ -44,8 +44,16 @@ export async function generateMetadata({
   const stdText = product.standards.length
     ? (locale === "uz" ? ` Standartlar: ${product.standards.join(", ")}.` : ` Стандарты: ${product.standards.join(", ")}.`)
     : "";
+  // Short teaser for meta description: first sentence of the description,
+  // stripped of the trailing specs paragraph and line breaks, capped ~160 chars.
+  const descTeaser = (() => {
+    const firstPara = product.description[locale].split(/\n{2,}/)[0].replace(/\s+/g, " ").trim();
+    const firstSentence = firstPara.split(/(?<=[.!?…])\s+/)[0] || firstPara;
+    const base = firstSentence.length > 170 ? firstSentence.slice(0, 157).trim() + "…" : firstSentence;
+    return base;
+  })();
   const description =
-    `${product.description[locale]}${stdText} ${
+    `${descTeaser}${stdText} ${
       locale === "uz"
         ? `${categoryName} — ulgurji va chakana yetkazib berish, ${region}.`
         : `${categoryName} — оптом и в розницу с доставкой, ${region}.`
