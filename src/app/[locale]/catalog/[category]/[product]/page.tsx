@@ -105,6 +105,18 @@ export default async function ProductDetailPage({
 
   const heroImage = product.image || getProductImage(product.categoryId, 0);
 
+  // Rich descriptions may contain several paragraphs separated by blank lines,
+  // optionally ending with a "Характеристики:"/"Xususiyatlari:" specs paragraph.
+  const specsLabels = ["характеристики:", "xususiyatlari:"];
+  const descParagraphs = product.description[locale]
+    .split(/\n{2,}/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const heroTeaser =
+    (descParagraphs[0] || product.description[locale]).split(
+      /(?<=[.!?…])\s+/
+    )[0] || product.description[locale];
+
   const related = (await getProductsByCategory(product.categoryId))
     .filter((p) => p.id !== product.id)
     .slice(0, 3);
@@ -195,7 +207,7 @@ export default async function ProductDetailPage({
               </h1>
               <div className="mt-3 h-1 w-16 rounded-full bg-accent" />
               <p className="mt-5 text-base text-white/70 sm:text-lg">
-                {product.description[locale]}
+                {heroTeaser}
               </p>
 
               {product.standards.length > 0 && (
@@ -270,9 +282,35 @@ export default async function ProductDetailPage({
                 {t.description}
               </h2>
               <div className="mt-3 h-1 w-12 rounded-full bg-accent" />
-              <p className="mt-6 text-base leading-relaxed text-gray-600">
-                {product.description[locale]}
-              </p>
+              <div className="mt-6 space-y-4">
+                {descParagraphs.map((para, i) => {
+                  const lower = para.toLowerCase();
+                  const labelHit = specsLabels.find((l) => lower.startsWith(l));
+                  if (labelHit) {
+                    const label = para.slice(0, labelHit.length).replace(/:$/, "");
+                    const rest = para.slice(labelHit.length).trim();
+                    return (
+                      <p
+                        key={i}
+                        className="text-base leading-relaxed text-gray-600"
+                      >
+                        <span className="font-semibold text-brand">
+                          {label}:
+                        </span>{" "}
+                        {rest}
+                      </p>
+                    );
+                  }
+                  return (
+                    <p
+                      key={i}
+                      className="text-base leading-relaxed text-gray-600"
+                    >
+                      {para}
+                    </p>
+                  );
+                })}
+              </div>
               <Link
                 href={`/${locale}/catalog/${category.slug}`}
                 className="mt-8 inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-accent-dark"
