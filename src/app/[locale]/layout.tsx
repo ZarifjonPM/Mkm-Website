@@ -11,10 +11,14 @@ import { SplashScreen } from "@/components/shared/SplashScreen";
 import { ChatWidget } from "@/components/chat/ChatWidget";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin", "cyrillic"] });
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://mkm-metal.uz";
+
+const GA_ID = "G-0LFQJXWEFC";
+const YM_ID = 111313317;
 
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -90,7 +94,10 @@ export async function generateMetadata({
       },
     },
     verification: {
-      google: process.env.GOOGLE_SITE_VERIFICATION,
+      google:
+        process.env.GOOGLE_SITE_VERIFICATION ||
+        "JWTJA4LsCi7zkUirpiXfZ1kjWb2L8nYUFg4M0_2SPjY",
+      yandex: "fb96a3a1114219f9",
     },
     robots: {
       index: true,
@@ -157,6 +164,33 @@ export default async function LocaleLayout({
         />
         <Analytics />
         <SpeedInsights />
+
+        {/* Google Analytics (gtag.js) */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_ID}');`}
+        </Script>
+
+        {/* Yandex.Metrika */}
+        <Script id="yandex-metrika" strategy="afterInteractive">
+          {`(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=${YM_ID}', 'ym');
+ym(${YM_ID}, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});`}
+        </Script>
+        <noscript>
+          <div>
+            <img
+              src={`https://mc.yandex.ru/watch/${YM_ID}`}
+              style={{ position: "absolute", left: "-9999px" }}
+              alt=""
+            />
+          </div>
+        </noscript>
       </body>
     </html>
   );
