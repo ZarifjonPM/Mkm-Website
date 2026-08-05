@@ -94,9 +94,10 @@ export async function generateMetadata({
       },
     },
     verification: {
-      google:
-        process.env.GOOGLE_SITE_VERIFICATION ||
+      google: [
+        process.env.GOOGLE_SITE_VERIFICATION,
         "JWTJA4LsCi7zkUirpiXfZ1kjWb2L8nYUFg4M0_2SPjY",
+      ].filter((v): v is string => Boolean(v)),
       yandex: "fb96a3a1114219f9",
     },
     robots: {
