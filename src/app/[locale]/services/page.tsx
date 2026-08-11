@@ -30,6 +30,7 @@ export async function generateMetadata({
       languages: {
         ru: `${BASE_URL}/ru/services`,
         uz: `${BASE_URL}/uz/services`,
+        "x-default": `${BASE_URL}/ru/services`,
       },
     },
     openGraph: {

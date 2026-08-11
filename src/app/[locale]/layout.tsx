@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "../globals.css";
 import { locales, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
+import { getSiteSettings, getPhonesArray } from "@/lib/settings";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { QuoteModalProvider } from "@/components/shared/QuoteModalProvider";
@@ -91,6 +92,7 @@ export async function generateMetadata({
       languages: {
         ru: `${BASE_URL}/ru`,
         uz: `${BASE_URL}/uz`,
+        "x-default": `${BASE_URL}/ru`,
       },
     },
     verification: {
@@ -114,29 +116,68 @@ export async function generateMetadata({
   };
 }
 
-const organizationJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "MKM Metal",
-  url: BASE_URL,
-  logo: `${BASE_URL}/images/logo.png`,
-  contactPoint: [
-    {
-      "@type": "ContactPoint",
-      telephone: "+998889993838",
-      contactType: "sales",
-      areaServed: "UZ",
-      availableLanguage: ["Russian", "Uzbek"],
-    },
-  ],
-  address: {
+type SettingsShape = Awaited<ReturnType<typeof getSiteSettings>>;
+
+function buildJsonLd(settings: SettingsShape, locale: Locale) {
+  const phones = getPhonesArray(settings);
+  const telHref = (p: string) => p.replace(/[^\d+]/g, "");
+  const address = {
     "@type": "PostalAddress",
     streetAddress: "ул. Темирчи, 19",
     addressLocality: "Ташкент",
+    addressRegion: "Ташкент",
     addressCountry: "UZ",
-  },
-  sameAs: [],
-};
+  };
+  const sameAs = [
+    settings.telegramUrl,
+    settings.instagramUrl,
+    settings.whatsappUrl,
+  ].filter((u) => u && u.trim().length > 0);
+
+  const organization = {
+    "@type": "Organization",
+    "@id": `${BASE_URL}/#organization`,
+    name: "MKM Metal",
+    url: BASE_URL,
+    logo: `${BASE_URL}/images/logo.png`,
+    email: settings.email || undefined,
+    address,
+    contactPoint: phones.map((p) => ({
+      "@type": "ContactPoint",
+      telephone: telHref(p),
+      contactType: "sales",
+      areaServed: "UZ",
+      availableLanguage: ["Russian", "Uzbek"],
+    })),
+    ...(sameAs.length ? { sameAs } : {}),
+  };
+
+  const localBusiness = {
+    "@type": "LocalBusiness",
+    "@id": `${BASE_URL}/#localbusiness`,
+    name: "MKM Metal",
+    description:
+      locale === "uz"
+        ? "O'zbekistonda metall prokat, quvur va metall mahsulotlari yetkazib beruvchi."
+        : "Поставщик металлопроката, труб и металлических изделий в Узбекистане.",
+    url: BASE_URL,
+    logo: `${BASE_URL}/images/logo.png`,
+    image: `${BASE_URL}/images/logo.png`,
+    email: settings.email || undefined,
+    telephone: phones.length ? telHref(phones[0]) : undefined,
+    priceRange: "$$",
+    currenciesAccepted: "UZS",
+    areaServed: { "@type": "Country", name: "Uzbekistan" },
+    address,
+    ...(sameAs.length ? { sameAs } : {}),
+    parentOrganization: { "@id": `${BASE_URL}/#organization` },
+  };
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [organization, localBusiness],
+  };
+}
 
 export default async function LocaleLayout({
   children,
@@ -147,6 +188,8 @@ export default async function LocaleLayout({
 }) {
   const locale = (params.locale as Locale) || "ru";
   const dict = await getDictionary(locale);
+  const settings = await getSiteSettings();
+  const jsonLd = buildJsonLd(settings, locale);
 
   return (
     <html lang={locale}>
@@ -161,7 +204,7 @@ export default async function LocaleLayout({
         </QuoteModalProvider>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <Analytics />
         <SpeedInsights />
