@@ -14,15 +14,23 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const locale = params.locale as Locale;
 
-  const title = locale === "uz" ? "Hamkorlar" : "Партнёры";
+  const title =
+    locale === "uz"
+      ? "MKM Metal hamkorlari — hamkorlik va metall prokat ulgurji yetkazib berish | MKM Metal"
+      : "Партнёры MKM Metal — сотрудничество и оптовые поставки металлопроката | MKM Metal";
   const description =
     locale === "uz"
-      ? "Bizning hamkorlarimiz — Rossiya, Yevropa va Osiyoning yetakchi metall prokat ishlab chiqaruvchilari. 30+ ishonchli hamkor."
-      : "Наши партнёры — ведущие производители металлопроката из России, Европы и Азии. Более 30 надёжных поставщиков.";
+      ? "MKM Metal hamkorlari va mijozlari. Toshkentda va O'zbekiston bo'ylab metall prokat ulgurji yetkazib berish hamda metallga ishlov berish bo'yicha hamkorlikka taklif qilamiz. Dilerlar, pudratchilar va ishlab chiqarishlar uchun qulay shartlar."
+      : "Партнёры и клиенты MKM Metal. Приглашаем к сотрудничеству по оптовым поставкам металлопроката и металлообработке в Ташкенте и по Узбекистану. Выгодные условия для дилеров, подрядчиков и производств.";
+  const keywords =
+    locale === "uz"
+      ? ["MKM Metal hamkorlar", "ulgurji metall prokat yetkazib berish", "hamkorlik", "dilerlar uchun", "metall prokat ulgurji Toshkent", "ishlab chiqarish uchun metall", "metall O'zbekiston"]
+      : ["партнёры MKM Metal", "оптовые поставки металлопроката", "сотрудничество металлопрокат", "дилерам", "металлопрокат оптом Ташкент", "поставки металла для производств", "металл Узбекистан"];
 
   return {
-    title,
+    title: { absolute: title },
     description,
+    keywords,
     alternates: {
       canonical: `${BASE_URL}/${locale}/partners`,
       languages: {

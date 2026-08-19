@@ -16,15 +16,23 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const locale = params.locale as Locale;
 
-  const title = locale === "uz" ? "Xizmatlar" : "Услуги";
+  const title =
+    locale === "uz"
+      ? "Toshkentda metallga ishlov berish — lazer kesish, egish, tokarlik, payvand | MKM Metal"
+      : "Металлообработка в Ташкенте — лазерная резка, гибка, токарка, сварка | MKM Metal";
   const description =
     locale === "uz"
-      ? "Kompleks xizmatlar: metall prokat yetkazib berish, sertifikatlash, buyurtma bo'yicha metall kesish va qayta ishlash."
-      : "Комплексные услуги: поставка металлопроката, сертификация продукции, резка и обработка металла под заказ.";
+      ? "MKM Metal dan Toshkentda metallga ishlov berish xizmatlari: metallni lazer bilan kesish va egish, tokarlik ishlari, payvandlash va metall konstruksiyalar, rux qoplash va kukunli bo'yash. Chizma bo'yicha hisob-kitob, O'zbekiston bo'ylab yetkazib berish."
+      : "Услуги металлообработки от MKM Metal в Ташкенте: лазерная резка и гибка металла, токарные работы, сварка и металлоконструкции, цинкование и порошковая окраска. Расчёт по чертежу, доставка по Узбекистану.";
+  const keywords =
+    locale === "uz"
+      ? ["metallga ishlov berish Toshkent", "lazer kesish", "metall egish", "tokarlik ishlari", "payvandlash metall konstruksiya", "kukunli bo'yash", "rux qoplash", "MKM Metal xizmatlari"]
+      : ["металлообработка Ташкент", "лазерная резка металла", "гибка металла", "токарные работы", "сварка металлоконструкции", "порошковая окраска", "цинкование", "услуги металлообработки", "MKM Metal"];
 
   return {
-    title,
+    title: { absolute: title },
     description,
+    keywords,
     alternates: {
       canonical: `${BASE_URL}/${locale}/services`,
       languages: {

@@ -13,15 +13,23 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const locale = params.locale as Locale;
 
-  const title = locale === "uz" ? "Kompaniya haqida" : "О компании";
+  const title =
+    locale === "uz"
+      ? "MKM Metal kompaniyasi haqida — Toshkentda metall prokat yetkazib beruvchi | MKM Metal"
+      : "О компании MKM Metal — надёжный поставщик металлопроката в Ташкенте | MKM Metal";
   const description =
     locale === "uz"
-      ? "MKM Metal — O'zbekiston metall prokat bozorida 10 yildan ortiq. Neft-gaz, qurilish va energetika sohalari uchun yetkazib berish. GOST, ASTM, DIN, API, ISO."
-      : "MKM Metal — более 10 лет на рынке металлопроката Узбекистана. Поставки для нефтегазовой, строительной и энергетической отраслей. Стандарты ГОСТ, ASTM, DIN, API, ISO.";
+      ? "MKM Metal — Toshkentda va butun O'zbekiston bo'ylab metall prokat, quvur va metall buyumlar yetkazib berish. Bozorda 5 yildan ortiq, GOST, ASTM, DIN standartlari bo'yicha ishlaymiz. To'g'ridan-to'g'ri yetkazib berish va sifat kafolati."
+      : "MKM Metal — поставки металлопроката, труб и металлоизделий в Ташкенте и по всему Узбекистану. Более 5 лет на рынке, работаем по стандартам ГОСТ, ASTM, DIN. Прямые поставки, гарантия качества и доставка по стране.";
+  const keywords =
+    locale === "uz"
+      ? ["MKM Metal kompaniya", "metall prokat yetkazib beruvchi Toshkent", "metall prokat O'zbekiston", "ulgurji metall savdosi", "GOST ASTM DIN", "ishonchli metall yetkazib beruvchi"]
+      : ["MKM Metal о компании", "поставщик металлопроката Ташкент", "металлопрокат Узбекистан", "металлотрейдер Ташкент", "оптовая продажа металла", "ГОСТ ASTM DIN", "надёжный поставщик металла"];
 
   return {
-    title,
+    title: { absolute: title },
     description,
+    keywords,
     alternates: {
       canonical: `${BASE_URL}/${locale}/about`,
       languages: {

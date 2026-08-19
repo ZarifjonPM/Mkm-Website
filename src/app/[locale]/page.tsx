@@ -19,17 +19,23 @@ export async function generateMetadata({
 
   const title =
     locale === "uz"
-      ? "MKM Metal — O'zbekistonda metall prokat yetkazib berish"
-      : "MKM Metal — Поставки металлопроката в Узбекистане";
+      ? "Toshkentda metall prokat ulgurji — quvur, armatura, varaq, metall buyumlar | MKM Metal"
+      : "Металлопрокат в Ташкенте оптом — трубы, арматура, лист, металлоизделия | MKM Metal";
 
   const description =
     locale === "uz"
-      ? "100+ turdagi metall prokat, quvur va metall mahsulotlari. GOST, ASTM, DIN standartlari bo'yicha ishonchli yetkazib beruvchi. Toshkent."
-      : "Надёжный поставщик металлопроката, труб и металлических изделий в Узбекистане. Более 100 наименований продукции по ГОСТ, ASTM, DIN. Ташкент.";
+      ? "MKM Metal kompaniyasidan Toshkentda metall prokat, O'zbekiston bo'ylab yetkazib berish bilan. 130 dan ortiq nom: quvur, armatura, varaq, burchak, maxsus po'latlar GOST, ASTM, DIN bo'yicha. Yuqori sifat, hamyonbop narx, tez yetkazib berish."
+      : "Купить металлопрокат в Ташкенте с доставкой по Узбекистану от компании MKM Metal. Более 130 наименований: трубы, арматура, листы, уголки, спецстали по ГОСТ, ASTM, DIN. Высокое качество, доступные цены, быстрая доставка.";
+
+  const keywords =
+    locale === "uz"
+      ? ["metall prokat Toshkent", "metall prokat O'zbekiston", "quvurlar Toshkent", "armatura", "varaq prokat", "metall buyumlar", "ulgurji metall", "maxsus po'latlar", "MKM Metal"]
+      : ["металлопрокат Ташкент", "купить металлопрокат Узбекистан", "трубы Ташкент", "арматура Ташкент", "листовой прокат", "металлоизделия", "поставка металла оптом", "спецстали", "MKM Metal"];
 
   return {
-    title,
+    title: { absolute: title },
     description,
+    keywords,
     alternates: {
       canonical: `${BASE_URL}/${locale}`,
       languages: {

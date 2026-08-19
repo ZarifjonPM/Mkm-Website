@@ -14,15 +14,23 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const locale = params.locale as Locale;
 
-  const title = locale === "uz" ? "Kontaktlar" : "Контакты";
+  const title =
+    locale === "uz"
+      ? "MKM Metal kontaktlari — Toshkentda metall prokat, telefon va manzil | MKM Metal"
+      : "Контакты MKM Metal — металлопрокат в Ташкенте, телефоны и адрес | MKM Metal";
   const description =
     locale === "uz"
-      ? "MKM Metal bilan bog'laning: +998 88 999 38 38. Toshkent sh., Temirchi ko'ch., 19. Online so'rov yuborish."
-      : "Свяжитесь с MKM Metal: +998 88 999 38 38. Ташкент, ул. Темирчи, 19. Онлайн-заявка на поставку металлопроката.";
+      ? "MKM Metal kompaniyasi kontaktlari: Toshkent shahri, Temirchi ko'chasi, 19. Telefonlar: +998 88 999 38 38, +998 88 979 79 97. Metall prokat va metallga ishlov berishga buyurtma bering, O'zbekiston bo'ylab yetkazib berish."
+      : "Контакты компании MKM Metal: город Ташкент, улица Темирчи, 19. Телефоны: +998 88 999 38 38, +998 88 979 79 97. Заказать металлопрокат и металлообработку с доставкой по Узбекистану.";
+  const keywords =
+    locale === "uz"
+      ? ["MKM Metal kontaktlar", "metall prokat Toshkent telefon", "MKM Metal manzil", "metall sotib olish Toshkent", "metall prokat buyurtma O'zbekiston", "metall bazasi Toshkent"]
+      : ["MKM Metal контакты", "металлопрокат Ташкент телефон", "адрес MKM Metal", "купить металл Ташкент", "заказать металлопрокат Узбекистан", "металлобаза Ташкент контакты"];
 
   return {
-    title,
+    title: { absolute: title },
     description,
+    keywords,
     alternates: {
       canonical: `${BASE_URL}/${locale}/contacts`,
       languages: {
