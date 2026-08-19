@@ -26,20 +26,26 @@ export async function generateMetadata({
   }
 
   const name = category.name[locale];
+  const nameLc = name.charAt(0).toLowerCase() + name.slice(1);
+  // Единый шаблон мета-тегов для всех категорий (в стиле MKM Metal).
   const title =
     locale === "uz"
-      ? `${name} — metall prokat katalogi`
-      : `${name} — каталог металлопроката`;
+      ? `${name} Toshkentda — ulgurji, O'zbekiston bo'ylab yetkazib berish | MKM Metal`
+      : `${name} в Ташкенте — купить оптом с доставкой по Узбекистану | MKM Metal`;
   const description =
-    category.description[locale] ||
-    (locale === "uz"
-      ? `${name}: assortiment, standartlar va O'zbekiston bo'ylab yetkazib berish. MKM Metal.`
-      : `${name}: ассортимент, стандарты и поставки по Узбекистану. MKM Metal.`);
+    locale === "uz"
+      ? `${name}ni Toshkentda sotib oling — MKM Metal kompaniyasidan O'zbekiston bo'ylab yetkazib berish bilan. Keng assortiment, GOST, ASTM, DIN standartlari, ulgurji narxlar va tez yetkazib berish.`
+      : `Купить ${nameLc} в Ташкенте с доставкой по Узбекистану от компании MKM Metal. Широкий ассортимент, стандарты ГОСТ, ASTM, DIN, оптовые цены и быстрая доставка.`;
+  const keywords =
+    locale === "uz"
+      ? [name, `${name} Toshkent`, `${name} O'zbekiston`, `${name} ulgurji`, `${name} narxi`, "metall prokat Toshkent", "MKM Metal"]
+      : [nameLc, `купить ${nameLc} Ташкент`, `${nameLc} Узбекистан`, `${nameLc} оптом`, `${nameLc} цена`, "металлопрокат Ташкент", "MKM Metal"];
   const url = `${BASE_URL}/${locale}/catalog/${category.slug}`;
 
   return {
-    title,
+    title: { absolute: title },
     description,
+    keywords,
     alternates: {
       canonical: url,
       languages: {

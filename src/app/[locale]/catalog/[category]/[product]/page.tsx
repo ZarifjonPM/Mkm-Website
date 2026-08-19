@@ -34,30 +34,20 @@ export async function generateMetadata({
   const category = await getCategoryBySlug(product.categoryId);
   const categoryName = category?.name[locale] ?? "";
   const name = product.name[locale];
-  const region = locale === "uz" ? "Toshkent, O'zbekiston" : "Ташкент, Узбекистан";
-
+  // Единый шаблон мета-тегов для всех товаров (в стиле MKM Metal).
   const title =
     locale === "uz"
-      ? `${name} — narxi va yetkazib berish`
-      : `${name} — цена и поставка`;
+      ? `${name} Toshkentda sotib olish — narx, O'zbekiston bo'ylab yetkazib berish | MKM Metal`
+      : `Купить ${name} в Ташкенте — цена, доставка по Узбекистану | MKM Metal`;
 
+  const typeText = product.productType[locale];
   const stdText = product.standards.length
     ? (locale === "uz" ? ` Standartlar: ${product.standards.join(", ")}.` : ` Стандарты: ${product.standards.join(", ")}.`)
     : "";
-  // Short teaser for meta description: first sentence of the description,
-  // stripped of the trailing specs paragraph and line breaks, capped ~160 chars.
-  const descTeaser = (() => {
-    const firstPara = product.description[locale].split(/\n{2,}/)[0].replace(/\s+/g, " ").trim();
-    const firstSentence = firstPara.split(/(?<=[.!?…])\s+/)[0] || firstPara;
-    const base = firstSentence.length > 170 ? firstSentence.slice(0, 157).trim() + "…" : firstSentence;
-    return base;
-  })();
   const description =
-    `${descTeaser}${stdText} ${
-      locale === "uz"
-        ? `${categoryName} — ulgurji va chakana yetkazib berish, ${region}.`
-        : `${categoryName} — оптом и в розницу с доставкой, ${region}.`
-    }`.trim();
+    locale === "uz"
+      ? `${name}ni Toshkentda sotib oling — MKM Metal kompaniyasidan O'zbekiston bo'ylab yetkazib berish bilan. ${typeText}.${stdText} Ulgurji va chakana narxlar, maslahat va tez yetkazib berish.`
+      : `Купить ${name} в Ташкенте с доставкой по Узбекистану от компании MKM Metal. ${typeText}.${stdText} Оптовые и розничные цены, консультация и быстрая доставка.`;
 
   const dict = await getDictionary(locale);
   const materialWords = product.materials.map(
@@ -65,6 +55,8 @@ export async function generateMetadata({
   );
   const keywords = [
     name,
+    locale === "uz" ? `${name} Toshkent` : `купить ${name} Ташкент`,
+    locale === "uz" ? `${name} narxi` : `${name} цена`,
     product.productType[locale],
     categoryName,
     ...materialWords,
@@ -76,7 +68,7 @@ export async function generateMetadata({
   const image = product.image || `${BASE_URL}${getProductImage(product.categoryId, 0)}`;
 
   return {
-    title,
+    title: { absolute: title },
     description,
     keywords,
     alternates: {
