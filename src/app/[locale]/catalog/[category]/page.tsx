@@ -5,6 +5,7 @@ import type { Locale } from "@/i18n/config";
 import { isValidLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { getCategoryBySlug, getProductsByCategory } from "@/lib/catalog";
+import { getCategorySeo } from "@/data/category-seo";
 import { CatalogClient } from "@/components/catalog/CatalogClient";
 
 export const dynamic = "force-dynamic";
@@ -76,6 +77,7 @@ export default async function CatalogCategoryPage({
 
   const dict = await getDictionary(locale);
   const products = await getProductsByCategory(category.slug);
+  const seoHtml = getCategorySeo(category.slug, locale);
 
   return (
     <section className="bg-surface py-12 lg:py-16">
@@ -107,6 +109,15 @@ export default async function CatalogCategoryPage({
             activeCategory={category.slug}
           />
         </div>
+
+        {seoHtml && (
+          <section className="mt-16 border-t border-gray-200 pt-10">
+            <div
+              className="max-w-none text-base leading-relaxed text-gray-600 [&_h2]:mt-8 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-brand [&_h2]:sm:text-3xl [&_h2:first-child]:mt-0 [&_h3]:mt-6 [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:text-brand [&_p]:mt-4 [&_ul]:mt-4 [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-6 [&_strong]:font-semibold [&_strong]:text-brand"
+              dangerouslySetInnerHTML={{ __html: seoHtml }}
+            />
+          </section>
+        )}
       </div>
     </section>
   );
