@@ -6,6 +6,7 @@ import { isValidLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { getCategoryBySlug, getProductsByCategory } from "@/lib/catalog";
 import { getCategorySeo } from "@/data/category-seo";
+import { getCategoryMeta } from "@/data/category-meta";
 import { CatalogClient } from "@/components/catalog/CatalogClient";
 
 export const dynamic = "force-dynamic";
@@ -41,12 +42,19 @@ export async function generateMetadata({
     locale === "uz"
       ? [name, `${name} Toshkent`, `${name} O'zbekiston`, `${name} ulgurji`, `${name} narxi`, "metall prokat Toshkent", "MKM Metal"]
       : [nameLc, `купить ${nameLc} Ташкент`, `${nameLc} Узбекистан`, `${nameLc} оптом`, `${nameLc} цена`, "металлопрокат Ташкент", "MKM Metal"];
+
+  // Unique per-category meta overrides the template above when available.
+  const meta = getCategoryMeta(category.slug, locale);
+  const finalTitle = meta?.title ?? title;
+  const finalDescription = meta?.description ?? description;
+  const finalKeywords = meta?.keywords ?? keywords;
+
   const url = `${BASE_URL}/${locale}/catalog/${category.slug}`;
 
   return {
-    title: { absolute: title },
-    description,
-    keywords,
+    title: { absolute: finalTitle },
+    description: finalDescription,
+    keywords: finalKeywords,
     alternates: {
       canonical: url,
       languages: {
@@ -57,8 +65,8 @@ export async function generateMetadata({
     },
     openGraph: {
       url,
-      title,
-      description,
+      title: finalTitle,
+      description: finalDescription,
       images: category.image ? [category.image] : undefined,
     },
   };
