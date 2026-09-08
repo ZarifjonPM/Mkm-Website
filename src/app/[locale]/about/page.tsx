@@ -15,8 +15,8 @@ export async function generateMetadata({
 
   const title =
     locale === "uz"
-      ? "Kompaniya haqida — Toshkentda metall prokat yetkazib beruvchi | MKM Metal"
-      : "О компании — надёжный поставщик металлопроката в Ташкенте | MKM Metal";
+      ? "MKM Metal kompaniyasi — Toshkent va O'zbekistonda metall prokat yetkazib beruvchi"
+      : "О компании MKM Metal — поставщик металлопроката в Ташкенте и Узбекистане";
   const description =
     locale === "uz"
       ? "MKM Metal — Toshkentda va butun O'zbekiston bo'ylab metall prokat, quvur va metall buyumlar yetkazib berish. Bozorda 5 yildan ortiq, GOST, ASTM, DIN standartlari bo'yicha ishlaymiz. To'g'ridan-to'g'ri yetkazib berish va sifat kafolati."
