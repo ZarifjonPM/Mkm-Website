@@ -19,8 +19,8 @@ export async function generateMetadata({
 
   const title =
     locale === "uz"
-      ? "Toshkentda metall prokat ulgurji — quvur, armatura, varaq, metall buyumlar | MKM Metal"
-      : "Металлопрокат в Ташкенте оптом — трубы, арматура, лист, металлоизделия | MKM Metal";
+      ? "Toshkentda metall prokat ulgurji, yetkazib berish bilan | MKM Metal"
+      : "Металлопрокат в Ташкенте оптом с доставкой | MKM Metal";
 
   const description =
     locale === "uz"
