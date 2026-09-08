@@ -16,8 +16,8 @@ export async function generateMetadata({
 
   const title =
     locale === "uz"
-      ? "MKM Metal hamkorlari — hamkorlik va metall prokat ulgurji yetkazib berish | MKM Metal"
-      : "Партнёры MKM Metal — сотрудничество и оптовые поставки металлопроката | MKM Metal";
+      ? "Hamkorlar — hamkorlik va metall prokat ulgurji yetkazib berish | MKM Metal"
+      : "Партнёры — сотрудничество и оптовые поставки металлопроката | MKM Metal";
   const description =
     locale === "uz"
       ? "MKM Metal hamkorlari va mijozlari. Toshkentda va O'zbekiston bo'ylab metall prokat ulgurji yetkazib berish hamda metallga ishlov berish bo'yicha hamkorlikka taklif qilamiz. Dilerlar, pudratchilar va ishlab chiqarishlar uchun qulay shartlar."

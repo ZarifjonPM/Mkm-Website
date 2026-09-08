@@ -16,8 +16,8 @@ export async function generateMetadata({
 
   const title =
     locale === "uz"
-      ? "MKM Metal kontaktlari — Toshkentda metall prokat, telefon va manzil | MKM Metal"
-      : "Контакты MKM Metal — металлопрокат в Ташкенте, телефоны и адрес | MKM Metal";
+      ? "Kontaktlar — Toshkentda metall prokat, telefon va manzil | MKM Metal"
+      : "Контакты — металлопрокат в Ташкенте, телефоны и адрес | MKM Metal";
   const description =
     locale === "uz"
       ? "MKM Metal kompaniyasi kontaktlari: Toshkent shahri, Temirchi ko'chasi, 19. Telefonlar: +998 88 999 38 38, +998 88 979 79 97. Metall prokat va metallga ishlov berishga buyurtma bering, O'zbekiston bo'ylab yetkazib berish."
