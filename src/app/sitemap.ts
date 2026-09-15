@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { locales } from "@/i18n/config";
 import { getAllCategories, getAllProducts } from "@/lib/catalog";
 import { serviceContentSlugs } from "@/data/services-content";
+import { sectors } from "@/data/sectors";
 
 export const dynamic = "force-dynamic";
 
@@ -53,6 +54,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Service detail pages
   for (const slug of serviceContentSlugs) {
     pushForAllLocales(`/services/${slug}`, "monthly", 0.7);
+  }
+
+  // Sector (purpose) landing pages
+  for (const sector of sectors) {
+    pushForAllLocales(`/otrasli/${sector.slug}`, "monthly", 0.8);
   }
 
   // Catalog: categories + products (from DB)

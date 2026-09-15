@@ -85,6 +85,14 @@ export async function getProductById(id: string): Promise<Product | null> {
   return row ? toProduct(row) : null;
 }
 
+export async function getProductsByPurpose(purpose: string): Promise<Product[]> {
+  const rows = await prisma.product.findMany({
+    where: { purposes: { has: purpose } },
+    orderBy: [{ categoryId: "asc" }, { id: "asc" }],
+  });
+  return rows.map(toProduct);
+}
+
 export function filterProducts(
   products: Product[],
   filters: CatalogFilters,

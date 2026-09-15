@@ -35,6 +35,15 @@ const purposeIds: PurposeId[] = [
   "industrial",
 ];
 
+// Purpose filter now links to dedicated sector landing pages (/otrasli/[slug]).
+const purposeSectorSlug: Record<PurposeId, string> = {
+  "oil-gas": "neftegazovaya-promyshlennost",
+  construction: "stroitelstvo",
+  mechanical: "mashinostroenie",
+  electrical: "elektroseti",
+  industrial: "promyshlennost",
+};
+
 export function CatalogContent({
   products,
   locale,
@@ -215,28 +224,14 @@ export function CatalogContent({
               {dict.catalog.purpose}
             </label>
             <div className="space-y-1">
-              <button
-                onClick={() => setFilter("purpose", null)}
-                className={`block w-full rounded-md px-3 py-1.5 text-left text-sm transition-colors ${
-                  !filters.purpose
-                    ? "bg-accent/10 font-medium text-accent"
-                    : "text-gray-600 hover:bg-gray-50"
-                }`}
-              >
-                {dict.catalog.allPurposes}
-              </button>
               {purposeIds.map((id) => (
-                <button
+                <Link
                   key={id}
-                  onClick={() => setFilter("purpose", id)}
-                  className={`block w-full rounded-md px-3 py-1.5 text-left text-sm transition-colors ${
-                    filters.purpose === id
-                      ? "bg-accent/10 font-medium text-accent"
-                      : "text-gray-600 hover:bg-gray-50"
-                  }`}
+                  href={`/${locale}/otrasli/${purposeSectorSlug[id]}`}
+                  className="block w-full rounded-md px-3 py-1.5 text-left text-sm text-gray-600 transition-colors hover:bg-gray-50"
                 >
                   {dict.purposes[id as keyof typeof dict.purposes]}
-                </button>
+                </Link>
               ))}
             </div>
           </div>
