@@ -61,8 +61,36 @@ export default async function HomePage({
   const dict = await getDictionary(locale);
   const partners = await getActivePartners();
 
+  const webPageJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${BASE_URL}/${locale}#webpage`,
+    url: `${BASE_URL}/${locale}`,
+    name:
+      locale === "uz"
+        ? "Toshkentda metall prokat ulgurji, yetkazib berish bilan"
+        : "Металлопрокат в Ташкенте оптом с доставкой",
+    description:
+      locale === "uz"
+        ? "MKM Metal kompaniyasidan Toshkentda metall prokat, O'zbekiston bo'ylab yetkazib berish bilan. 130 dan ortiq nom: quvur, armatura, varaq, burchak, maxsus po'latlar GOST, ASTM, DIN bo'yicha."
+        : "Купить металлопрокат в Ташкенте с доставкой по Узбекистану от компании MKM Metal. Более 130 наименований: трубы, арматура, листы, уголки, спецстали по ГОСТ, ASTM, DIN.",
+    inLanguage: locale === "uz" ? "uz-UZ" : "ru-RU",
+    isPartOf: {
+      "@type": "WebSite",
+      "@id": `${BASE_URL}/#website`,
+      url: BASE_URL,
+      name: "MKM Metal",
+    },
+    about: { "@id": `${BASE_URL}/#organization` },
+    primaryImageOfPage: `${BASE_URL}/images/logo.png`,
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }}
+      />
       <HeroSection locale={locale} dict={dict} />
       <CategoryGrid locale={locale} dict={dict} />
       <StatsSection dict={dict} />

@@ -162,6 +162,36 @@ export default async function ProductDetailPage({
     specs.push({ label: t.standards, value: product.standards.join(", ") });
   }
 
+  // Product microdata (JSON-LD) — data pulled from the product record.
+  const productUrl = `${BASE_URL}/${locale}/catalog/${product.categoryId}/${product.id}`;
+  const productImage = product.image
+    ? product.image
+    : `${BASE_URL}${getProductImage(product.categoryId, 0)}`;
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "@id": `${productUrl}#product`,
+    name: product.name[locale],
+    description: descParagraphs[0] || product.description[locale],
+    image: [productImage],
+    sku: product.id,
+    category: category.name[locale],
+    brand: { "@type": "Brand", name: "MKM Metal" },
+    ...(materialWords.length ? { material: materialWords.join(", ") } : {}),
+    additionalProperty: specs.map((s) => ({
+      "@type": "PropertyValue",
+      name: s.label,
+      value: s.value,
+    })),
+    offers: {
+      "@type": "Offer",
+      url: productUrl,
+      availability: "https://schema.org/InStock",
+      priceCurrency: "UZS",
+      seller: { "@id": `${BASE_URL}/#organization` },
+    },
+  };
+
   const arrow = (
     <svg
       className="ml-1 h-4 w-4"
@@ -180,6 +210,10 @@ export default async function ProductDetailPage({
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
       {/* Hero */}
       <section className="bg-brand py-14 lg:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
